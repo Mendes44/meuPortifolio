@@ -545,3 +545,149 @@ background: var(--color-black);
     }
 }
 
+@media screen and (max-width: 768px){
+  
+    #person{
+        display: block;
+        background: var(--color-black);
+        width: 200vw;
+        height: 100vw;
+        margin: 100;
+        z-index: 1;
+        align-items: center;
+    }
+    .person-content {
+        display: block;
+        background: none;
+        width: 100vw;
+    }
+    .person-name{
+        margin: 0;
+        padding: 10;
+        align-items: center;
+    }
+    .person-background{
+        display: flex;
+        margin: auto;
+        background: none;
+        width: 700%;
+        flex-direction: column;
+        margin: 0;
+        align-items: baseline;
+    }
+    .person-background::after{
+        display: block;
+        background: var(--color-black);
+        width: 300%;
+        margin: 10;
+        align-items: baseline;
+    }
+    .links{
+        display: block;
+        background: none;
+        flex-direction: column;
+        margin: 0;
+        align-items: center;
+    }
+    #about{
+        background: var(--color-black);
+        width: 200%;
+        margin: 0;
+        align-items: center;
+        z-index: -1;
+    }
+
+    .background-about{
+        display: block;
+        background: none;
+        width: 300vw;
+        flex-direction: column;
+        margin: 0;
+    }
+    .box-about{
+        display: flex;
+        background: none;
+        width: 340%;
+        flex-direction: column;
+        z-index: 1;
+    }
+    .section-subtitle{
+        display: block;
+        background: none;
+        width: 100vw;
+    }
+  
+    }
+    .stacks{
+        display: flex;
+        background: none;
+        width: 100%;
+        align-items: center;
+    }
+    .stacks-content{
+        display: inline;
+        background: none;
+        width: 100%;
+        align-items: center;
+        z-index: 1;
+    }
+    #projetos{
+        display: flex;
+        background: var(--color-black);
+        width: 200%;
+        height: 200%;
+        margin: 0;
+       
+        align-items: center;
+    }
+    .wrapper-projects{
+        display: block;
+        align-items: baseline;
+        margin: auto;
+    }
+    #contatos{
+        display: flex;
+        background: var(--color-black);
+        width: 2000vw;
+        height: 400vw;
+        margin: auto;
+    }
+    .contato-icon-content{
+        display: flex;
+        margin: auto;
+        height: auto;
+    }
+    .contato-icone-content{
+        display: flex;
+        margin: 0;
+        top: 0;
+        left: 0;
+    
+        background: var(--color-black);
+       
+    }
+    .contato-icon-content h2{
+        display: flex;
+        align-items: center;
+        top: 0;
+        left: 0;
+        margin: auto;
+        justify-content: center;
+
+    }
+    .contato-icone{
+        display: block;
+        height: auto;
+        align-items: center;
+    }
+    .card-project div{
+        display: flex;
+        align-items: center;
+        padding: auto;
+        object-fit: cover;
+        
+    }
+    
+ 
+}
+
