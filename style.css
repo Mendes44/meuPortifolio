@@ -616,10 +616,7 @@ background: var(--color-black);
         display: block;
         background: none;
         width: 100vw;
-    }
-    
-    }
-    .stacks-content{
+    }    .stacks-content{
         display: inline;
         background: none;
         width: 100%;
@@ -682,8 +679,4 @@ background: var(--color-black);
         object-fit: cover;
         
     }
-  
-   
-    
-
-
+}
