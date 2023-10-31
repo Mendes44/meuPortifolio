@@ -457,6 +457,7 @@ body{
 }
 /* FIM DO PROJETO */
 
+/* RESPONSIVO CELULAR */
 #contatos {
     display: flex;
     flex-direction: column;
