@@ -578,7 +578,7 @@ background: var(--color-black);
     .person-background::after{
         display: block;
         background: var(--color-black);
-        width: 300%;
+        width: 330%;
         margin: 10;
         align-items: baseline;
     }
@@ -591,10 +591,11 @@ background: var(--color-black);
     }
     #about{
         background: var(--color-black);
-        width: 200%;
+        width: 210%;
         margin: 0;
         align-items: center;
         z-index: -1;
+        justify-content: center;
     }
 
     .background-about{
@@ -616,13 +617,7 @@ background: var(--color-black);
         background: none;
         width: 100vw;
     }
-  
-    }
-    .stacks{
-        display: flex;
-        background: none;
-        width: 100%;
-        align-items: center;
+    
     }
     .stacks-content{
         display: inline;
@@ -687,7 +682,8 @@ background: var(--color-black);
         object-fit: cover;
         
     }
+  
+   
     
- 
-}
+
 
