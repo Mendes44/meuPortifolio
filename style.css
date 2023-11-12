@@ -266,7 +266,7 @@ body{
     object-fit: cover;
 }
 .box-about{
-    display: flex;
+    display: inline;
     justify-content: center;
     flex-direction: column;
 
@@ -276,11 +276,14 @@ body{
 }
 .section-subtitle h2 p {
     display: inline-block;
-    font-size: 3rem;
+    font-size: 2rem;
+    display: inline;
 }
 .section-subtitle h2 p:nth-child(2) span {
     padding: 3px 5px;
     border-radius: 4px;
+
+    display: inline;
 
     color: var(--color-black);
     background: var(--color-white);
@@ -290,7 +293,7 @@ body{
     font-size: 2rem;
 }
 .box-about h3 p {
-    display: inline-block;
+    display: flex;
     width: fit-content;
     padding: 2px 4px;
     border-radius: 4px;
@@ -305,7 +308,7 @@ body{
 }
 .box-about h4 p {
     display: inline;
-    color: blue;
+    color: rgb(77, 255, 0);
     font-size: bold;
     font-weight: 1.75rem;
 }
