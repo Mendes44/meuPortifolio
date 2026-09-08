@@ -1,0 +1,15 @@
+CARTÃO DIGITAL — COMO GRAVAR EM UMA ETIQUETA NFC
+
+1. Publique o index.html e a pasta img no Netlify ou em outra hospedagem.
+2. Copie o endereço HTTPS público da página já publicada.
+3. Instale no celular um aplicativo para gravação NFC, como NFC Tools.
+4. Abra o aplicativo e escolha: Gravar > Adicionar registro > URL/URI.
+5. Cole o endereço público completo da página.
+6. Toque em Gravar e aproxime a etiqueta NFC da parte traseira do celular.
+7. Teste com outro celular antes de colar a etiqueta no cartão.
+
+Grave apenas a URL na etiqueta. Os links continuam dentro do site e poderão ser
+atualizados depois sem a necessidade de regravar o NFC.
+
+O NFC não abre arquivos que estejam somente no computador. A página precisa
+estar publicada em um endereço HTTPS antes da gravação.

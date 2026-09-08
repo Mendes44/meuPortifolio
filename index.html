@@ -1,247 +1,43 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="style.css">
-    <title>Portifólio - Marcos Mendes</title>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#101316">
+  <meta name="description" content="Cartão digital de Marcos Mendes, desenvolvedor Full Stack e profissional de infraestrutura.">
+  <title>Marcos Mendes | Cartão digital</title>
+  <style>
+    :root{--bg:#101316;--surface:#181c21;--surface2:#20262d;--line:#2c343e;--text:#f4f5f7;--muted:#a3adb9;--accent:#83b7ff;--accent2:#b0d2ff}
+    *{box-sizing:border-box}html{color-scheme:dark}body{margin:0;min-height:100vh;background:radial-gradient(circle at 50% -10%,#28466d 0,transparent 35rem),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.3;background-image:linear-gradient(#ffffff05 1px,transparent 1px),linear-gradient(90deg,#ffffff05 1px,transparent 1px);background-size:34px 34px;mask-image:linear-gradient(to bottom,#000,transparent 78%)}a,button{-webkit-tap-highlight-color:transparent}button{font:inherit}.page{width:min(100% - 32px,470px);margin:auto;padding:46px 0 30px;position:relative}.brand{display:flex;justify-content:center;align-items:center;gap:11px;margin-bottom:28px;color:var(--muted);font-size:.67rem;letter-spacing:.17em;text-transform:uppercase}.brand-mark{color:var(--text);font-size:1.28rem;font-weight:800;letter-spacing:-.08em;text-transform:lowercase}.brand-mark span{color:var(--accent)}.divider{width:1px;height:20px;background:var(--line)}.profile{text-align:center}.photo{width:118px;height:118px;margin:0 auto 20px;padding:4px;border-radius:31px;background:linear-gradient(140deg,var(--accent2),#476fa4 55%,#25354a);box-shadow:0 0 0 7px #83b7ff0d,0 24px 55px #0009;transform:rotate(-2deg)}.photo img{width:100%;height:100%;object-fit:cover;object-position:center 18%;border-radius:27px;filter:saturate(.78);transform:rotate(2deg)}.available{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border:1px solid var(--line);border-radius:999px;background:#181c21cc;color:var(--muted);font-size:.71rem}.available:before{content:"";width:7px;height:7px;border-radius:50%;background:#91d5b1;box-shadow:0 0 0 4px #91d5b115}h1{margin:17px 0 7px;font-size:clamp(2rem,9vw,2.65rem);line-height:1;letter-spacing:-.065em}.role{margin:0;color:var(--accent);font-size:.84rem;font-weight:650;letter-spacing:.11em;text-transform:uppercase}.intro{max-width:390px;margin:16px auto 26px;color:var(--muted);font-size:.93rem;line-height:1.65}.primary,.link{display:flex;align-items:center;gap:14px;text-decoration:none}.primary{margin-bottom:14px;padding:19px;border-radius:14px;background:linear-gradient(135deg,var(--accent2),#74a9ef);color:#101b2b;box-shadow:0 17px 45px #4f8fd638;transition:.18s}.primary:hover{transform:translateY(-3px);box-shadow:0 21px 52px #4f8fd650}.icon{width:46px;height:46px;display:grid;place-items:center;flex:0 0 auto;border:1px solid #ffffff12;border-radius:11px;background:var(--surface2);color:var(--accent)}.primary .icon{width:48px;height:48px;background:#ffffff48;color:#101b2b}.icon svg,.action svg{width:22px;height:22px}.copy{min-width:0;text-align:left}.copy strong{display:block;font-size:.98rem}.copy span{display:block;margin-top:2px;color:currentColor;opacity:.7;font-size:.76rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.arrow{margin-left:auto;font-size:1.2rem}.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:22px}.action{display:flex;align-items:center;justify-content:center;gap:9px;min-height:45px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--text);cursor:pointer;font-weight:650;font-size:.77rem}.links{display:grid;gap:10px}.link{min-height:72px;padding:13px 16px;border:1px solid var(--line);border-radius:13px;background:linear-gradient(120deg,var(--surface),#161a1f);color:var(--text);box-shadow:0 11px 28px #0003;transition:.18s}.link:hover{border-color:#83b7ff80;transform:translateX(3px);background:var(--surface2)}.aws .icon{color:#edb575}footer{margin-top:30px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);text-align:center;font-size:.69rem;letter-spacing:.06em}.toast{position:fixed;left:50%;bottom:22px;z-index:5;max-width:calc(100% - 32px);padding:10px 15px;border-radius:8px;background:var(--text);color:var(--bg);font-size:.78rem;transform:translate(-50%,30px);opacity:0;pointer-events:none;transition:.2s}.toast.show{opacity:1;transform:translate(-50%,0)}:focus-visible{outline:3px solid var(--accent);outline-offset:4px}@media(max-width:390px){.page{width:min(100% - 22px,470px);padding-top:30px}.brand{margin-bottom:24px}.link{min-height:67px}}@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+  </style>
 </head>
-
 <body>
-    <!-- Person -->
-    <section id="person">
-        <div class="person-content">
-            <div class="person-name">
-                <h1>Olá, <span></span></h1>
-                <h1>Meu Nome é<span></span></h1>
-                <h1>Marcos Mendes<span></span></h1>
-            </div>
-
-         <div class="stacks-content">
-            <h3>Tecnologias: </h3>
-
-            <div class="stacks">
-                <ul>
-                    <li>
-                        <div data="JAVA">
-                        <img src="./svg/java.svg" alt="java-icon">
-                        </div>
-                    </li>
-                </ul>
-            <div class="stacks">
-                <ul>
-                    <li>
-                        <div data="JavaScript">
-                        <img src="./svg/js.svg" alt="js-icon">
-                        </div>
-                    </li>
-                </ul>
-            <div class="stacks">
-                <ul>
-                    <li>
-                        <div data="Python">
-                        <img src="./svg/python.svg" alt="python-icon">
-                        </div>
-                    </li>
-                </ul>
-            <div class="stacks">
-                <ul>
-                    <li>
-                        <div data="HTML">
-                        <img src="./svg/html.svg" alt="html-icon">
-                        </div>
-                    </li>
-                </ul>
-            <div class="stacks">
-                <ul>
-                    <li>
-                        <div data="CSS">
-                        <img src="./svg/css.svg" alt="css-icon">
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-<div class="person-background">
-    <div class="envelope-profile-photo">
-         <img class="profile-photo" src="./img/Marcos_Mendes.png">
-    </div>
-
-    <div class="links">
-        <a href="https://github.com/Mendes44" target="_blank">
-        <img src="./svg/logo-github.svg" alt="icon-github">
-        </a>
-        <a href="https://www.instagram.com/marcosmendes44/" target="_blank"> 
-        <img src="./svg/logo-insta.svg" alt="icon-insta">
-        </a>
-        <a href="https://www.linkedin.com/in/marcosmendes44/" target="_blank"> 
-        <img src="./svg/logo-linkedin.svg" alt="icon-likedin">
-        </a>
-    </div>
-</div>  
-    </section>
-    <!-- FIM PERSON -->
-    <!-- ABOUT -->
-<section id="about">
-    <div class="background-about">
-        <div class="img-papeldeparede">
-            <img src="./img/img.2.jpg" alt="img2-notebook">
-            
-        </div>
-    </div>
-    <div class="box-about">
-        <div class="section-subtitle">
-            <h2>
-                <p>💻</p>
-                <p><span>Desenvolvedor</span> Full Stack</p>
-            </h2>
-        </div>
-        <h3>
-            Sou um Desenvolvedor Full Stack com experiência em: 
-            <p>JavaScript,HTML, CSS, Java e Python</p>
-        </h3>
-
-        <h4>
-            Olá, meu nome é Marcos Mendes e tenho 30 anos. Possuo mais de 13 anos de experiência 
-            no dinâmico setor de Tecnologia da Informação. Durante minha trajetória, trabalhei com 
-            diversas empresas especializadas em sistemas de automação, além de atuar como Freelancer. 
-            <br>Atualmente, estou disponível e entusiasta para explorar novas oportunidades nas áreas de 
-            Desenvolvimento, Análise de Sistemas ou Gerencia de TI. 
-            Abaixo, disponibilizo meu currículo para download, que destaca minha expertise
-            e conquistas ao longo da carreira. </br>
-            <br>Estou ansioso para compartilhar meu portfólio e discutir como posso contribuir para projetos desafiadores 
-            na área de tecnologia.</br>
-
-            
-        </h4>
-        <h4>
-            Abaixo está o meu <p>currículo</p> para download.
-        </h4>
-
-        <div class="button-cta">
-            <a href="./doc/Currículo Marcos Mendes  - Nov23.pdf" target="_blank">
-            <button>Currículo</button>
-            </a>
-        </div>
-
-    </div>
-    <!-- FIM ABOUT -->
-</section>
-<!-- Projetos -->
-<section id="projetos">
-    <div class="projetos-title">
-        <h2>PROJETOS 🧩</h2>
-    </div>
-
-    <div class="wrapper-projects">
-        
-        <div class="card-project">
-            <div class="content-project">
-                <div class="image-project">
-                    <a href="https://github.com/Mendes44/projeto-jogodexadrez"target="_blank">
-                    <img src="./img/CodJogo.png" alt="Programa de Pedidos-img">
-                    </a>
-                </div>
-                <span>Jogo de Xadrez - Java</span>
-                <p>Esse Projeto e de um jogo de Xadrez, onde aplico diversas técnicas de programação como: herança, encapsulamento, classes abstratas
-                    tratamento de exceções, enumerações entre outras...
-                </p>
-                <div class="cta-project">
-                    <a href="https://github.com/Mendes44/projeto-jogodexadrez/tree/main/src"target="_blank">
-                        Código
-                        <i class="fa-brands fa-github"></i>
-                    </a>
-                    <a href="/">
-                        Site
-                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="card-project">
-            <div class="content-project">
-                <div class="image-project">
-                    <a href="/">
-                    <img src="./img/Site.jpg" alt="Site-img">
-                    </a>
-                </div>
-                <span>SITE</span>
-                <p>Site feito com HTML, CSS e JavaScript</p>
-                <div class="cta-project">
-                    <a href="https://github.com/Mendes44/meuPortifolio" target="_blank">
-                        Código
-                        <i class="fa-brands fa-github"></i>
-                    </a>
-                    <a href="/">
-                        Site
-                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                    </a>
-                </div>
-            </div>
-        </div><div class="card-project">
-            <div class="content-project">
-                <div class="image-project">
-                    <a href="/">
-                    <img src="./img/conversor.jpg" alt="conversor-img">
-                    </a>
-                </div>
-                <span>Em Breve</span>
-                <p>Projeto em Python</p>
-                <div class="cta-project">
-                    <a href="/">
-                        Código
-                        <i class="fa-brands fa-github"></i>
-                    </a>
-                    <a href="/">
-                        Site
-                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    
-    
-    </div>
-
-</section>
-<!-- FIM PROJETOS -->
-
-<section id="contatos">
-    <div class="contato-icon-content">
-        <h2>Contato 📞</h2>
-    </div>
-
-    <div class="contato-icones-wrapper">
-        <div class="contato-icone-content">
-            <div class="contato-icone">
-                <i class="fa-solid fa-map"></i>
-            </div>
-            <div class="contato-info">
-                <span>Localização</span>
-                <p>Belo Horizonte, Brasil</p>
-            </div>
-        </div>
-    </div>
-    <div class="contato-icones-wrapper">
-        <div class="contato-icone-content">
-            <div class="contato-icone">
-                <i class="fa-solid fa-envelope"></i>
-            </div>
-            <div class="contato-info">
-                <span>Email: </span>
-                <a href="">
-                    marcosmendesm10@gmail.com
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
-</body>
-</html>
+<main class="page">
+  <div class="brand"><span class="brand-mark">DevMendes<span>.</span></span><span class="divider"></span><span>DEV / TI</span></div>
+  <section class="profile">
+    <div class="photo"><img src="./img/Marcos_Mendes.png" alt="Marcos Mendes"></div>
+    <span class="available">Disponível para novos projetos</span>
+    <h1>Marcos Mendes</h1><p class="role">Especialista em TI & Desenvolvedor Full Stack</p>
+    <p class="intro">Desenvolvimento web, sistemas e Redes/Infraestrutura para transformar ideias em soluções que funcionam no mundo real.</p>
+  </section>
+  <a class="primary" href="https://dev-mendes.vercel.app/" target="_blank" rel="noopener noreferrer">
+    <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 9l-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></span>
+    <span class="copy"><strong>Conheça a Dev Mendes</strong><span>Sites e soluções digitais</span></span><span class="arrow">↗</span>
+  </a>
+  <div class="actions">
+    <button class="action" id="save" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/><circle cx="12" cy="12" r="9"/></svg>Salvar contato</button>
+    <button class="action" id="share" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="M8.3 10.8l7.4-4.5M8.3 13.2l7.4 4.5"/></svg>Compartilhar</button>
+  </div>
+  <nav class="links" aria-label="Links profissionais">
+    <a class="link" href="https://marcosmendes.netlify.app/" target="_blank" rel="noopener noreferrer"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M7 6.5h.01M10 6.5h.01"/></svg></span><span class="copy"><strong>Portfólio</strong><span>Projetos, tecnologias e experiência</span></span><span class="arrow">›</span></a>
+    <a class="link" href="https://github.com/Mendes44" target="_blank" rel="noopener noreferrer"><span class="icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.86c-2.78.6-3.37-1.18-3.37-1.18-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.35 1.09 2.92.83.09-.65.35-1.09.64-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.6 9.6 0 0 1 12 6.84a9.6 9.6 0 0 1 2.5.34c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.75c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg></span><span class="copy"><strong>GitHub</strong><span>@Mendes44</span></span><span class="arrow">›</span></a>
+    <a class="link" href="https://www.linkedin.com/in/marcosmendes44/" target="_blank" rel="noopener noreferrer"><span class="icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.5 8.2H3.2V21h3.3V8.2ZM4.85 3A1.92 1.92 0 1 0 4.85 6.84 1.92 1.92 0 0 0 4.85 3ZM21 13.65c0-3.85-2.05-5.64-4.79-5.64a4.14 4.14 0 0 0-3.75 2.06V8.2H9.17V21h3.29v-6.34c0-1.67.32-3.3 2.4-3.3 2.05 0 2.08 1.92 2.08 3.4V21H21v-7.35Z"/></svg></span><span class="copy"><strong>LinkedIn</strong><span>/in/marcosmendes44</span></span><span class="arrow">›</span></a>
+    <a class="link aws" href="https://www.credly.com/badges/638d5aba-3345-4888-99eb-0746afccef7d/linked_in_profile" target="_blank" rel="noopener noreferrer"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m12 3 2.1 1.6 2.6-.1.7 2.5 2.2 1.5-.9 2.5.9 2.5-2.2 1.5-.7 2.5-2.6-.1L12 21l-2.1-1.6-2.6.1-.7-2.5-2.2-1.5.9-2.5-.9-2.5L6.6 7l.7-2.5 2.6.1L12 3Z"/><path d="m9 12 2 2 4-4"/></svg></span><span class="copy"><strong>AWS Cloud Practitioner</strong><span>Validar certificação no Credly</span></span><span class="arrow">›</span></a>
+  </nav>
+  <footer>TECNOLOGIA COM PROPÓSITO · <span id="year"></span></footer>
+</main><div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+const toast=document.querySelector('#toast');const message=t=>{toast.textContent=t;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),2400)};document.querySelector('#year').textContent=new Date().getFullYear();
+document.querySelector('#save').addEventListener('click',()=>{const card=['BEGIN:VCARD','VERSION:3.0','FN:Marcos Mendes','N:Mendes;Marcos;;;','TITLE:Desenvolvedor Full Stack','EMAIL;TYPE=INTERNET:marcosmendesm10@gmail.com','TEL;TYPE=CELL:+5531987340462','URL:https://dev-mendes.vercel.app/','NOTE:Desenvolvimento web, sistemas e infraestrutura.','END:VCARD'].join('\r\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([card],{type:'text/vcard;charset=utf-8'}));a.download='Marcos-Mendes.vcf';a.click();URL.revokeObjectURL(a.href);message('Contato pronto para salvar.')});
+document.querySelector('#share').addEventListener('click',async()=>{const data={title:'Marcos Mendes | Cartão digital',text:'Conheça o trabalho de Marcos Mendes.',url:location.href};try{if(navigator.share)await navigator.share(data);else{await navigator.clipboard.writeText(data.url);message('Link copiado.')}}catch(e){if(e.name!=='AbortError')message('Não foi possível compartilhar.')}});
+</script>
+</body></html>
