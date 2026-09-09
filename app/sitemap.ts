@@ -5,6 +5,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   if (!url) return [];
   return [
     "",
+    "/projetos",
+    "/tecnologias",
+    "/sobre",
+    "/cartao",
     "/privacidade",
     ...projects.map((p) => `/projetos/${p.slug}`),
   ].map((path) => ({

@@ -1,6 +1,38 @@
 import { Database, Terminal, ShieldCheck, ArrowUpRight } from "lucide-react";
 import { technologyGroups } from "@/lib/technologies";
-export function TechnologySection() {
+import Link from "next/link";
+
+export function TechnologySection({ compact = false }: { compact?: boolean }) {
+  if (compact) {
+    const featured = technologyGroups.flatMap((group) => group.items).slice(0, 15);
+    return (
+      <section id="tecnologias" className="section alternate-section technology-preview-section">
+        <div className="container">
+          <div className="section-heading">
+            <div>
+              <div className="eyebrow">TECNOLOGIAS</div>
+              <h2>Conhecimento que conecta todas as camadas.</h2>
+            </div>
+            <p className="section-lead">
+              Ferramentas de desenvolvimento, dados, cloud, redes e infraestrutura
+              aplicadas ao longo da minha trajetória.
+            </p>
+          </div>
+          <div className="featured-technologies">
+            {featured.map(([title, icon]) => (
+              <div className="featured-technology" key={title}>
+                <TechnologyIcon icon={icon} />
+                <span>{title}</span>
+              </div>
+            ))}
+          </div>
+          <Link className="button technology-more" href="/tecnologias">
+            Ver todas as tecnologias <ArrowUpRight size={17} />
+          </Link>
+        </div>
+      </section>
+    );
+  }
   return (
     <section id="tecnologias" className="section alternate-section">
       <div className="container">
@@ -30,21 +62,7 @@ export function TechnologySection() {
                 {group.items.map(([title, icon]) => (
                   <div key={title} className="technology-item">
                     <span>
-                      {icon === "database" ? (
-                        <Database />
-                      ) : icon === "terminal" ? (
-                        <Terminal />
-                      ) : icon === "shield" ? (
-                        <ShieldCheck />
-                      ) : (
-                        <img
-                          src={`/icons/${icon}.svg`}
-                          alt=""
-                          width="28"
-                          height="28"
-                          loading="lazy"
-                        />
-                      )}
+                      <TechnologyIcon icon={icon} />
                     </span>
                     <small>{title}</small>
                   </div>
@@ -56,5 +74,17 @@ export function TechnologySection() {
         </div>
       </div>
     </section>
+  );
+}
+
+function TechnologyIcon({ icon }: { icon: string }) {
+  return icon === "database" ? (
+    <Database />
+  ) : icon === "terminal" ? (
+    <Terminal />
+  ) : icon === "shield" ? (
+    <ShieldCheck />
+  ) : (
+    <img src={`/icons/${icon}.svg`} alt="" width="28" height="28" loading="lazy" />
   );
 }

@@ -44,10 +44,10 @@ export function SiteHeader() {
             }}
           >
             {[
-              ["Projetos", "/#projetos"],
-              ["Tecnologias", "/#tecnologias"],
-              ["Sobre", "/#sobre"],
-              ["Experiência", "/#experiencia"],
+              ["Início", "/"],
+              ["Projetos", "/projetos"],
+              ["Tecnologias", "/tecnologias"],
+              ["Sobre mim", "/sobre"],
             ].map(([title, href]) => (
               <Link key={title} href={href} onClick={() => setOpen(false)}>
                 {title}
