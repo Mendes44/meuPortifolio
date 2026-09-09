@@ -22,6 +22,7 @@ export default function AboutPage() {
     <>
       <SiteHeader />
       <main id="conteudo" className="inner-page">
+        {/* Introdução e atalhos profissionais. */}
         <section className="container page-hero about-page-hero">
           <div>
             <div className="eyebrow">SOBRE MIM</div>
@@ -40,6 +41,7 @@ export default function AboutPage() {
           </div>
         </section>
 
+        {/* Apresentação completa fornecida por Marcos. */}
         <section className="alternate-section section">
           <div className="container about-narrative">
             <div>
@@ -69,6 +71,7 @@ export default function AboutPage() {
           </div>
         </section>
 
+        {/* Competências organizadas pelas quatro frentes de atuação. */}
         <section className="container section">
           <div className="section-heading">
             <div><div className="eyebrow">ÁREAS DE ATUAÇÃO</div><h2>Especialista em TI de ponta a ponta.</h2></div>
@@ -81,6 +84,7 @@ export default function AboutPage() {
           </div>
         </section>
 
+        {/* Histórico profissional alimentado por lib/profile.ts. */}
         <section className="alternate-section section">
           <div className="container">
             <div className="section-heading">
@@ -100,6 +104,7 @@ export default function AboutPage() {
           </div>
         </section>
 
+        {/* Formação acadêmica e validação pública da certificação AWS. */}
         <section className="container section">
           <div className="eyebrow">FORMAÇÃO E CERTIFICAÇÕES</div>
           <h2>Base acadêmica e evolução contínua.</h2>

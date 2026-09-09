@@ -3,6 +3,7 @@ import { technologyGroups } from "@/lib/technologies";
 import Link from "next/link";
 
 export function TechnologySection({ compact = false }: { compact?: boolean }) {
+  // A home usa uma amostra compacta para manter a leitura rápida.
   if (compact) {
     const featured = technologyGroups.flatMap((group) => group.items).slice(0, 15);
     return (
@@ -33,6 +34,7 @@ export function TechnologySection({ compact = false }: { compact?: boolean }) {
       </section>
     );
   }
+  // A rota /tecnologias mostra todos os grupos e seus níveis de experiência.
   return (
     <section id="tecnologias" className="section alternate-section">
       <div className="container">
@@ -78,6 +80,7 @@ export function TechnologySection({ compact = false }: { compact?: boolean }) {
 }
 
 function TechnologyIcon({ icon }: { icon: string }) {
+  // Ícones genéricos cobrem conhecimentos sem arquivo SVG próprio.
   return icon === "database" ? (
     <Database />
   ) : icon === "terminal" ? (

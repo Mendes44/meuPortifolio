@@ -1,8 +1,9 @@
 export const technologyGroups = [
   {
-    title: "Frontend",
+    // Frontend e backend formam uma única visão Full Stack.
+    title: "Full Stack",
     level: "Aplicado em projetos",
-    description: "Interfaces, componentes e experiências na web.",
+    description: "Interfaces, regras de negócio, APIs e integrações.",
     items: [
       ["HTML5", "html"],
       ["CSS3", "css"],
@@ -11,13 +12,6 @@ export const technologyGroups = [
       ["React", "react"],
       ["Next.js", "nextjs"],
       ["Tailwind CSS", "tailwind"],
-    ],
-  },
-  {
-    title: "Backend & APIs",
-    level: "Aplicado em projetos",
-    description: "Regras de negócio, serviços e integrações.",
-    items: [
       ["Java", "java"],
       ["Spring Boot", "spring"],
       ["Node.js", "node"],
@@ -25,6 +19,7 @@ export const technologyGroups = [
     ],
   },
   {
+    // Dados, infraestrutura, cloud e estudos ficam separados por contexto de uso.
     title: "Bancos de dados",
     level: "Experiência prática e projetos",
     description: "Consultas, persistência e organização de dados.",

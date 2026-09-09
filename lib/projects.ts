@@ -31,6 +31,10 @@ export type Project = {
   source: string;
 };
 const gh = "https://github.com/Mendes44/";
+
+// ADICIONE NOVOS PROJETOS AQUI:
+// copie um dos objetos abaixo, defina um `slug` único e preencha os links,
+// tecnologias, descrição e detalhes. A página /projetos é atualizada automaticamente.
 export const projects: Project[] = [
   {
     slug: "chico-do-peixe",

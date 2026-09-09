@@ -44,6 +44,7 @@ export default function Home() {
     <>
       <SiteHeader />
       <main id="conteudo">
+        {/* Apresentação principal: posicionamento, foto, currículo e certificação. */}
         <section className="container hero">
           <div className="hero-copy">
             <div className="eyebrow">
@@ -98,6 +99,7 @@ export default function Home() {
           </div>
         </section>
 
+        {/* As quatro áreas comunicam a visão ampla de especialista em TI. */}
         <section className="expertise-overview section">
           <div className="container">
             <div className="section-heading">
@@ -112,6 +114,7 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Resumo profissional; o conteúdo completo fica na rota /sobre. */}
         <section className="container section home-summary">
           <div>
             <div className="eyebrow">SOBRE MIM</div>
@@ -124,13 +127,16 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Seleção curta de tecnologias; a lista completa fica em /tecnologias. */}
         <TechnologySection compact />
 
+        {/* Entrada para a página exclusiva de projetos. */}
         <section className="container section projects-entry">
           <div><div className="eyebrow">PROJETOS</div><h2>Soluções organizadas por área e tecnologia.</h2><p>Explore trabalhos de frontend, backend, dados, automação, redes e Linux em uma página feita para facilitar a busca.</p></div>
           <Link className="button" href="/projetos">Explorar todos os projetos <ArrowUpRight size={18} /></Link>
         </section>
 
+        {/* Canais diretos e formulário de contato. */}
         <ContactSection />
       </main>
       <SiteFooter />

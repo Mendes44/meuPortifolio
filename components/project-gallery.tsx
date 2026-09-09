@@ -5,6 +5,7 @@ import { ArrowUpRight, Search, X, SlidersHorizontal } from "lucide-react";
 import { areas, projects, filterProjects } from "@/lib/projects";
 import { ProjectVisual } from "./project-visual";
 export function ProjectGallery() {
+  // Os três estados abaixo alimentam os filtros combinados da galeria.
   const [area, setArea] = useState("Todos");
   const [technology, setTechnology] = useState("Todas");
   const [query, setQuery] = useState("");
@@ -78,6 +79,7 @@ export function ProjectGallery() {
           {results.length} {results.length === 1 ? "projeto" : "projetos"}
         </span>
       </div>
+      {/* Os cartões são gerados a partir da lista em lib/projects.ts. */}
       <div className="project-grid">
         {results.map((p) => (
           <article className="project-card" key={p.slug}>

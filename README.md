@@ -83,7 +83,7 @@ RESEND_API_KEY=
 CONTACT_FROM=Portfolio <contato@seudominio.com>
 ```
 
-As mensagens serão encaminhadas para `marcosmendesm10@gmail.com`. O formulário inclui validação no cliente e no servidor, honeypot, limite de frequência e resposta clara em caso de erro.
+As mensagens serão encaminhadas para `marcosmendes.dev@gmail.com`. O formulário inclui validação no cliente e no servidor, honeypot, limite de frequência e resposta clara em caso de erro.
 
 ## Variáveis de ambiente
 

@@ -21,6 +21,11 @@ export function SiteHeader() {
       localStorage.setItem("portfolio-theme", next ? "dark" : "light");
     } catch {}
   };
+  // Fecha o menu e garante que toda navegação interna comece no topo.
+  const navigateFromHeader = () => {
+    setOpen(false);
+    window.scrollTo({ top: 0, behavior: "auto" });
+  };
   return (
     <>
       <a className="skip-link" href="#conteudo">
@@ -32,8 +37,12 @@ export function SiteHeader() {
             href="/"
             className="wordmark"
             aria-label="Marcos Mendes, início"
+            scroll
+            onClick={navigateFromHeader}
           >
-            mendes<span>.</span>
+            <span className="wordmark-shell">
+              <span className="typing-wordmark">mendes<span>.</span></span>
+            </span>
             <small>DEV / TI</small>
           </Link>
           <nav
@@ -49,7 +58,7 @@ export function SiteHeader() {
               ["Tecnologias", "/tecnologias"],
               ["Sobre mim", "/sobre"],
             ].map(([title, href]) => (
-              <Link key={title} href={href} onClick={() => setOpen(false)}>
+              <Link key={title} href={href} scroll onClick={navigateFromHeader}>
                 {title}
               </Link>
             ))}
@@ -65,7 +74,7 @@ export function SiteHeader() {
             >
               {dark ? <Sun size={19} /> : <Moon size={19} />}
             </button>
-            <Link className="button button-small" href="/#contato">
+            <Link className="button button-small" href="/#contato" scroll onClick={() => setOpen(false)}>
               Vamos conversar <ArrowUpRight size={15} />
             </Link>
             <button

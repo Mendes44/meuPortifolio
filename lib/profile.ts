@@ -1,6 +1,6 @@
 export const profile = {
   name: "Marcos Mendes",
-  email: "marcosmendesm10@gmail.com",
+  email: "marcosmendes.dev@gmail.com",
   github: "https://github.com/Mendes44",
   linkedin: "https://www.linkedin.com/in/marcosmendes44/",
   awsCertification:
