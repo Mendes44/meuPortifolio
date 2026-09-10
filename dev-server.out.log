@@ -54,3 +54,10 @@
  POST /api/events 204 in 527ms (next.js: 6ms, application-code: 521ms)
  GET / 200 in 20ms (next.js: 9ms, application-code: 11ms)
  GET / 200 in 18ms (next.js: 9ms, application-code: 9ms)
+  Reload env: .env.local
+✓ Compiled in 312ms
+ GET / 200 in 760ms (next.js: 211ms, application-code: 549ms)
+ GET / 200 in 209ms (next.js: 121ms, application-code: 87ms)
+ GET / 200 in 1203ms (next.js: 254ms, application-code: 949ms)
+ GET / 200 in 774ms (next.js: 110ms, application-code: 664ms)
+ POST /api/events 403 in 132ms (next.js: 107ms, application-code: 24ms)
