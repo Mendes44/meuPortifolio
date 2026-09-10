@@ -8,7 +8,7 @@ export function SiteFooter() {
           <Link className="wordmark footer-wordmark" href="/" scroll aria-label="Voltar ao início">
             mendes<span>.</span>
           </Link>
-          <p>Desenvolvimento, infraestrutura e aprendizado contínuo.</p>
+          <p>Desenvolvimento, infraestrutura e Especialista e TI.</p>
           <div>
             <a href={profile.github} target="_blank" rel="noreferrer" aria-label="GitHub de Marcos Mendes">
               <img src="/icons/logo-github.svg" width="22" height="22" alt="" />
@@ -20,7 +20,7 @@ export function SiteFooter() {
         </div>
         <div className="footer-bottom">
           <span>
-            © {new Date().getFullYear()} Marcos Mendes · Belo Horizonte, Brasil
+            © {new Date().getFullYear()} Marcos Mendes · Brasil
           </span>
           <Link href="/privacidade" scroll>Privacidade</Link>
           <Link href="/admin" scroll>Área privada</Link>

@@ -3,9 +3,11 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ArrowUpRight, Menu, Moon, Sun, X } from "lucide-react";
 import { profile } from "@/lib/profile";
+import { useLanguage } from "@/components/language-provider";
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [dark, setDark] = useState(true);
+  const { language, setLanguage } = useLanguage();
   useEffect(() => {
     try {
       const light = localStorage.getItem("portfolio-theme") === "light";
@@ -21,10 +23,9 @@ export function SiteHeader() {
       localStorage.setItem("portfolio-theme", next ? "dark" : "light");
     } catch {}
   };
-  // Fecha o menu e garante que toda navegação interna comece no topo.
+  // O retorno ao topo após a troca de rota é feito globalmente no layout.
   const navigateFromHeader = () => {
     setOpen(false);
-    window.scrollTo({ top: 0, behavior: "auto" });
   };
   return (
     <>
@@ -67,6 +68,18 @@ export function SiteHeader() {
             </a>
           </nav>
           <div className="header-actions">
+            <label className="language-picker" data-no-translate>
+              <span className="sr-only">Idioma</span>
+              <select
+                value={language}
+                onChange={(event) => setLanguage(event.target.value as "pt" | "en" | "es")}
+                aria-label="Escolher idioma"
+              >
+                <option value="pt">PT</option>
+                <option value="en">EN</option>
+                <option value="es">ES</option>
+              </select>
+            </label>
             <button
               className="icon-button"
               onClick={theme}

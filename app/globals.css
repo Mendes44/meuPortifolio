@@ -143,7 +143,7 @@ p {
 }
 .wordmark-shell {
   display: inline-block;
-  width: 3.85em;
+  width: 4.05em;
   overflow: hidden;
   color: var(--text);
 }
@@ -159,7 +159,7 @@ p {
 }
 @keyframes type-wordmark {
   0% { width: 0; }
-  4%, 99.9% { width: 3.72em; }
+  4%, 99.9% { width: 3.92em; }
   100% { width: 0; }
 }
 @keyframes blink-wordmark {
@@ -192,6 +192,22 @@ p {
 }
 .header-actions {
   gap: 12px;
+}
+.language-picker select {
+  height: 42px;
+  padding: 0 27px 0 11px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.language-picker select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 .button {
   display: inline-flex;
@@ -663,7 +679,7 @@ p {
     color: var(--text);
   }
   .typing-wordmark {
-    width: 3.72em;
+    width: 3.92em;
     border-color: transparent;
   }
 }
@@ -1432,6 +1448,7 @@ p {
   font-size: 0.8rem;
 }
 .contact-section {
+  scroll-margin-top: 108px;
   display: grid;
   grid-template-columns: 1.15fr 1fr;
   gap: 70px;
@@ -1522,6 +1539,26 @@ p {
 }
 .form-feedback.success {
   color: #9ecfaf;
+}
+.contact-success {
+  min-height: 330px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.contact-success > svg {
+  color: #9ecfaf;
+  margin-bottom: 18px;
+}
+.contact-success h3 {
+  margin-bottom: 10px;
+}
+.contact-success p {
+  max-width: 28rem;
+  margin: 0;
+  color: var(--muted);
 }
 .honeypot {
   position: absolute;

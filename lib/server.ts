@@ -14,10 +14,13 @@ export function configured() {
   return !!(
     process.env.SUPABASE_URL &&
     process.env.SUPABASE_ANON_KEY &&
-    process.env.SUPABASE_SERVICE_ROLE_KEY &&
+    (process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY) &&
     process.env.SUPABASE_ADMIN_USER_ID &&
     process.env.RATE_LIMIT_SECRET
   );
+}
+export function publicDatabaseConfigured() {
+  return !!(process.env.SUPABASE_URL && process.env.SUPABASE_ANON_KEY);
 }
 export function publicAuth() {
   return createClient(
@@ -29,7 +32,7 @@ export function publicAuth() {
 export function serviceDb() {
   return createClient(
     process.env.SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
+    (process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY)!,
     { auth: { persistSession: false, autoRefreshToken: false } },
   );
 }

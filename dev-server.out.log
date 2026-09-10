@@ -1,0 +1,56 @@
+
+> marcos-mendes-portfolio@1.0.0 dev
+> next dev --hostname 127.0.0.1
+
+▲ Next.js 16.3.4 (Turbopack)
+- Local:         http://127.0.0.1:3000
+- Network:       http://127.0.0.1:3000
+- Environments: .env.local
+✓ Ready in 904ms
+✓ Running next.config.ts took 68ms
+
+ GET / 200 in 849ms (next.js: 371ms, application-code: 478ms)
+ POST /api/events 204 in 1397ms (next.js: 142ms, application-code: 1255ms)
+ GET /admin 200 in 169ms (next.js: 89ms, application-code: 81ms)
+ GET / 200 in 67ms (next.js: 22ms, application-code: 44ms)
+ GET / 200 in 150ms (next.js: 17ms, application-code: 133ms)
+ GET / 200 in 136ms (next.js: 15ms, application-code: 121ms)
+ GET / 200 in 132ms (next.js: 14ms, application-code: 118ms)
+ GET / 200 in 587ms (next.js: 15ms, application-code: 572ms)
+ GET / 200 in 467ms (next.js: 18ms, application-code: 449ms)
+ GET / 200 in 364ms (next.js: 16ms, application-code: 348ms)
+ GET / 200 in 228ms (next.js: 31ms, application-code: 197ms)
+ GET /admin 200 in 83ms (next.js: 17ms, application-code: 67ms)
+ POST /api/auth/login 200 in 2.9s (next.js: 1043ms, application-code: 1815ms)
+ GET /admin 200 in 1184ms (next.js: 13ms, application-code: 1171ms)
+ GET /api/admin/metrics?start=2026-08-11&end=2026-09-09 200 in 1596ms (next.js: 518ms, application-code: 1078ms)
+ GET /api/admin/events?start=2026-08-11&end=2026-09-09&page=0 200 in 1642ms (next.js: 644ms, application-code: 998ms)
+ GET /api/admin/metrics?start=2026-08-11&end=2026-09-09 200 in 915ms (next.js: 7ms, application-code: 908ms)
+ GET /api/admin/events?start=2026-08-11&end=2026-09-09&page=0 200 in 1132ms (next.js: 13ms, application-code: 1119ms)
+ POST /api/auth/logout 200 in 754ms (next.js: 719ms, application-code: 35ms)
+ GET /admin 200 in 110ms (next.js: 17ms, application-code: 93ms)
+ GET / 200 in 127ms (next.js: 16ms, application-code: 111ms)
+ POST /api/events 204 in 831ms (next.js: 9ms, application-code: 822ms)
+✓ Compiled in 254ms
+ GET / 200 in 208ms (next.js: 36ms, application-code: 172ms)
+✓ Compiled in 161ms
+ GET / 200 in 180ms (next.js: 165ms, application-code: 15ms)
+ GET / 200 in 67ms (next.js: 7ms, application-code: 60ms)
+ GET / 200 in 59ms (next.js: 10ms, application-code: 49ms)
+ GET / 200 in 47ms (next.js: 7ms, application-code: 40ms)
+ GET / 200 in 57ms (next.js: 8ms, application-code: 49ms)
+ GET / 200 in 66ms (next.js: 8ms, application-code: 57ms)
+ GET / 200 in 60ms (next.js: 8ms, application-code: 52ms)
+ GET /projetos 200 in 185ms (next.js: 153ms, application-code: 32ms)
+ POST /api/events 204 in 1062ms (next.js: 25ms, application-code: 1037ms)
+ GET / 200 in 59ms (next.js: 7ms, application-code: 52ms)
+ POST /api/events 204 in 551ms (next.js: 7ms, application-code: 544ms)
+ GET / 200 in 68ms (next.js: 7ms, application-code: 60ms)
+ GET / 200 in 55ms (next.js: 10ms, application-code: 45ms)
+ GET / 200 in 59ms (next.js: 6ms, application-code: 53ms)
+ GET / 200 in 37ms (next.js: 6ms, application-code: 30ms)
+ GET / 200 in 44ms (next.js: 5ms, application-code: 39ms)
+ GET / 200 in 143ms (next.js: 9ms, application-code: 134ms)
+ POST /api/events 204 in 527ms (next.js: 6ms, application-code: 521ms)
+ GET / 200 in 20ms (next.js: 9ms, application-code: 11ms)
+ GET / 200 in 18ms (next.js: 9ms, application-code: 9ms)

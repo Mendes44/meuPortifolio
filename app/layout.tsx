@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Analytics } from "@/components/analytics";
+import { ScrollToTop } from "@/components/scroll-to-top";
+import { AutoTranslate, LanguageProvider } from "@/components/language-provider";
 import { profile } from "@/lib/profile";
 export const metadata: Metadata = {
   metadataBase: new URL(
@@ -38,8 +40,12 @@ export default function RootLayout({
         <link rel="stylesheet" href="/fonts/fonts.css" />
       </head>
       <body>
-        {children}
-        <Analytics />
+        <LanguageProvider>
+          <ScrollToTop />
+          <AutoTranslate />
+          {children}
+          <Analytics />
+        </LanguageProvider>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

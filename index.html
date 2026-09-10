@@ -14,7 +14,7 @@
 <main class="page">
   <div class="brand"><span class="brand-mark">DevMendes<span>.</span></span><span class="divider"></span><span>DEV / TI</span></div>
   <section class="profile">
-    <div class="photo"><img src="/images/marcos-profissional.webp" alt="Marcos Mendes"></div>
+    <div class="photo"><img src="./images/marcos-profissional.webp" alt="Marcos Mendes"></div>
     <span class="available">Disponível para novos projetos</span>
     <h1>Marcos Mendes</h1><p class="role">Especialista em TI & Desenvolvedor Full Stack</p>
     <p class="intro">Desenvolvimento web, sistemas e Redes/Infraestrutura para transformar ideias em soluções que funcionam no mundo real.</p>
@@ -41,3 +41,4 @@ document.querySelector('#save').addEventListener('click',()=>{const card=['BEGIN
 document.querySelector('#share').addEventListener('click',async()=>{const data={title:'Marcos Mendes | Cartão digital',text:'Conheça o trabalho de Marcos Mendes.',url:location.href};try{if(navigator.share)await navigator.share(data);else{await navigator.clipboard.writeText(data.url);message('Link copiado.')}}catch(e){if(e.name!=='AbortError')message('Não foi possível compartilhar.')}});
 </script>
 </body></html>
+

@@ -1,13 +1,16 @@
 "use client";
 import { useState, type FormEvent, useEffect } from "react";
-import { ArrowUpRight, Mail, MessageCircle, Send } from "lucide-react";
+import { ArrowUpRight, CircleCheck, Mail, MessageCircle, Send } from "lucide-react";
 import { profile } from "@/lib/profile";
 export function ContactSection() {
   const [busy, setBusy] = useState(false);
   const [feedback, setFeedback] = useState("");
   const [success, setSuccess] = useState(false);
   const [startedAt, setStartedAt] = useState(0);
-  useEffect(() => setStartedAt(Date.now()), []);
+  useEffect(() => {
+    setStartedAt(Date.now());
+    setSuccess(sessionStorage.getItem("portfolio-contact-sent") === "yes");
+  }, []);
   async function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setBusy(true);
@@ -26,7 +29,7 @@ export function ContactSection() {
       setFeedback(result.message || result.error);
       if (response.ok) {
         form.reset();
-        setStartedAt(Date.now());
+        sessionStorage.setItem("portfolio-contact-sent", "yes");
       }
     } catch {
       setFeedback("Conexão indisponível. Tente o e-mail ou o WhatsApp.");
@@ -37,7 +40,7 @@ export function ContactSection() {
   return (
     <section id="contato" className="container section contact-section">
       <div>
-        <div className="eyebrow">06 / VAMOS CONVERSAR</div>
+        <div className="eyebrow">VAMOS CONVERSAR</div>
         <h2>
           Seu próximo projeto
           <br />
@@ -83,7 +86,13 @@ export function ContactSection() {
           </a>
         </div>
       </div>
-      <form className="contact-form" onSubmit={submit}>
+      {success ? (
+        <div className="contact-form contact-success" role="status" aria-live="polite">
+          <CircleCheck size={48} />
+          <h3>Seus dados foram enviados.</h3>
+          <p>Obrigado pelo contato. Responderei assim que possível.</p>
+        </div>
+      ) : <form className="contact-form" onSubmit={submit} aria-busy={busy}>
         <h3>Conte um pouco sobre sua ideia.</h3>
         <label>
           Seu nome
@@ -131,13 +140,10 @@ export function ContactSection() {
           {busy ? "Enviando..." : "Enviar mensagem"}
           <Send size={17} />
         </button>
-        <p
-          className={success ? "form-feedback success" : "form-feedback"}
-          role="status"
-        >
+        <p className="form-feedback" role="status">
           {feedback}
         </p>
-      </form>
+      </form>}
     </section>
   );
 }
