@@ -9,17 +9,20 @@ import {
   sessionCookie,
 } from "@/lib/server";
 import { authorizedAdmin } from "@/lib/validation";
+
 export async function POST(request: Request) {
   if (!sameOrigin(request))
     return Response.json(
       { error: "Origem inválida." },
       { status: 403, headers: noStore },
     );
+
   if (!configured())
     return Response.json(
       { error: "A área privada ainda não foi conectada ao Supabase." },
       { status: 503, headers: noStore },
     );
+
   try {
     const raw = (await readJson(request, 1500)) as Record<string, unknown>;
     if (
@@ -30,27 +33,32 @@ export async function POST(request: Request) {
       raw.password.length > 256
     )
       return new Response(null, { status: 400 });
+
     if (!(await rateLimit(request, "login", 5)))
       return Response.json(
         { error: "Muitas tentativas. Aguarde dez minutos." },
         { status: 429, headers: noStore },
       );
+
     const auth = publicAuth();
     const { data, error } = await auth.auth.signInWithPassword({
       email: raw.email,
       password: raw.password,
     });
-    if (
-      error ||
-      !data.session ||
-      !authorizedAdmin(data.user?.id, process.env.SUPABASE_ADMIN_USER_ID)
-    ) {
+
+    // VERIFICAÇÃO DE NÍVEIS DE ACESSO
+    const userId = data.user?.id;
+    const isAdmin = authorizedAdmin(userId, process.env.SUPABASE_ADMIN_USER_ID);
+    const isViewer = userId === process.env.VIEWER_UID;
+
+    if (error || !data.session || (!isAdmin && !isViewer)) {
       if (data.session) await auth.auth.signOut({ scope: "local" });
       return Response.json(
         { error: "Acesso não autorizado. Confira suas credenciais." },
         { status: 401, headers: noStore },
       );
     }
+
     (await cookies()).set(sessionCookie, data.session.access_token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
@@ -58,6 +66,7 @@ export async function POST(request: Request) {
       path: "/",
       maxAge: Math.min(data.session.expires_in, 3600),
     });
+
     return Response.json({ ok: true }, { headers: noStore });
   } catch {
     return Response.json(

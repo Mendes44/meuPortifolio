@@ -9,7 +9,9 @@ import {
   safePath,
   type EventType,
 } from "./validation";
+
 export const sessionCookie = "portfolio_session";
+
 export function configured() {
   return !!(
     process.env.SUPABASE_URL &&
@@ -19,9 +21,11 @@ export function configured() {
     process.env.RATE_LIMIT_SECRET
   );
 }
+
 export function publicDatabaseConfigured() {
   return !!(process.env.SUPABASE_URL && process.env.SUPABASE_ANON_KEY);
 }
+
 export function publicAuth() {
   return createClient(
     process.env.SUPABASE_URL!,
@@ -29,6 +33,7 @@ export function publicAuth() {
     { auth: { persistSession: false, autoRefreshToken: false } },
   );
 }
+
 export function serviceDb() {
   return createClient(
     process.env.SUPABASE_URL!,
@@ -36,17 +41,22 @@ export function serviceDb() {
     { auth: { persistSession: false, autoRefreshToken: false } },
   );
 }
+
 export async function adminSession() {
   if (!configured()) return null;
+
   const token = (await cookies()).get(sessionCookie)?.value;
   if (!token) return null;
+
   const auth = publicAuth();
   const { data, error } = await auth.auth.getUser(token);
-  if (
-    error ||
-    !authorizedAdmin(data.user?.id, process.env.SUPABASE_ADMIN_USER_ID)
-  )
-    return null;
+  
+  const userId = data.user?.id;
+  const isAdmin = authorizedAdmin(userId, process.env.SUPABASE_ADMIN_USER_ID);
+  const isViewer = userId === process.env.VIEWER_UID;
+
+  if (error || (!isAdmin && !isViewer)) return null;
+
   const db = createClient(
     process.env.SUPABASE_URL!,
     process.env.SUPABASE_ANON_KEY!,
@@ -55,13 +65,26 @@ export async function adminSession() {
       auth: { persistSession: false, autoRefreshToken: false },
     },
   );
-  const { data: member, error: memberError } = await db
-    .from("portfolio_admins")
-    .select("user_id")
-    .eq("user_id", data.user!.id)
-    .maybeSingle();
-  return memberError || !member ? null : { db, token };
+
+  // SE FOR ADMIN: Valida também na tabela de admins
+  if (isAdmin) {
+    const { data: member, error: memberError } = await db
+      .from("portfolio_admins")
+      .select("user_id")
+      .eq("user_id", userId)
+      .maybeSingle();
+
+    return memberError || !member ? null : { db, token, role: "admin" };
+  }
+
+  // SE FOR VIEWER: Ignora a tabela e devolve a sessão restrita
+  if (isViewer) {
+    return { db, token, role: "viewer" };
+  }
+
+  return null;
 }
+
 export function sameOrigin(request: Request) {
   const origin = request.headers.get("origin");
   const expected = new URL(
@@ -69,6 +92,7 @@ export function sameOrigin(request: Request) {
   ).origin;
   return origin === expected;
 }
+
 export async function readJson(
   request: Request,
   max = 12000,
@@ -91,23 +115,28 @@ export async function readJson(
   }
   return JSON.parse(Buffer.concat(chunks).toString("utf8"));
 }
+
 export async function rateLimit(request: Request, scope: string, limit = 30) {
   if (!configured()) return false;
-  // Read a client address only when the deployment guarantees this header is overwritten.
+
   const header = process.env.TRUSTED_CLIENT_IP_HEADER;
   const identity = header
     ? request.headers.get(header)?.split(",")[0]?.trim() || "shared"
     : "shared";
+
   const key = createHmac("sha256", process.env.RATE_LIMIT_SECRET!)
     .update(`${new Date().toISOString().slice(0, 10)}:${identity}`)
     .digest("hex");
+
   const { data, error } = await serviceDb().rpc("portfolio_take_rate_limit", {
     p_key: key,
     p_scope: scope,
     p_limit: limit,
   });
+
   return !error && data === true;
 }
+
 export async function recordEvent(
   request: Request,
   type: EventType,
@@ -134,4 +163,5 @@ export async function recordEvent(
     });
   if (error) throw new Error("event_unavailable");
 }
+
 export const noStore = { "Cache-Control": "no-store, private" };

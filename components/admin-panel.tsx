@@ -6,7 +6,7 @@ import { ArrowDownToLine, LogOut, ShieldCheck, RefreshCw } from "lucide-react";
 import { projects } from "@/lib/projects";
 import { createClient } from "@supabase/supabase-js"; 
 
-// Inicialização do Supabase (Substitua a chave anon)
+// Inicialização do Supabase
 const supabaseUrl = 'https://voxrjndqnzlsjitnhgrx.supabase.co';
 const supabaseKey = 'sb_publishable_9TF-N8EGJ3VRm_t11k_l8w_8Nuljlc5'; 
 const supabase = createClient(supabaseUrl, supabaseKey);
@@ -67,7 +67,7 @@ export function AdminLogin({ ready }: { ready: boolean }) {
       <ShieldCheck size={36} />
       <div className="eyebrow">ACESSO RESTRITO</div>
       <h1>Área privada</h1>
-      <p>Indicadores e registros do portfólio.</p>
+      <p>Acesse o painel administrativo.</p>
 
       {!ready && (
         <div className="project-note">
@@ -121,7 +121,8 @@ const eventLabels: Record<string, string> = {
   cv_download: "Currículo",
 };
 
-export function AdminPanel() {
+// Adicionado a prop 'role' para controlar o que é exibido
+export function AdminPanel({ role = "admin" }: { role?: string }) {
   const router = useRouter();
   const [start, setStart] = useState(
     new Date(Date.now() - 29 * 86400000).toISOString().slice(0, 10),
@@ -131,7 +132,7 @@ export function AdminPanel() {
   const [rows, setRows] = useState<EventRow[]>([]);
   const [count, setCount] = useState(0);
   const [page, setPage] = useState(0);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(role === "admin"); // Só carrega se for admin
   const [error, setError] = useState("");
   const [refresh, setRefresh] = useState(0);
 
@@ -142,7 +143,10 @@ export function AdminPanel() {
 
   const query = `start=${start}&end=${end}`;
 
+  // Busca de métricas e acessos (SÓ RODA PARA ADMIN)
   useEffect(() => {
+    if (role !== "admin") return; // Bloqueia a execução se for visitante
+
     let cancelled = false;
     setLoading(true);
     setError("");
@@ -182,14 +186,13 @@ export function AdminPanel() {
     return () => {
       cancelled = true;
     };
-  }, [query, page, refresh, router]);
+  }, [query, page, refresh, router, role]);
 
-  // --- FUNÇÃO E HOOK PARA BUSCAR LEADS ---
+  // --- FUNÇÃO E HOOK PARA BUSCAR LEADS (RODA PARA TODOS) ---
   async function buscarLeads(nomeTabela: string) {
     setCarregandoLeads(true);
     setTabelaAtiva(nomeTabela);
 
-    // Identifica qual coluna de data usar com base na tabela
     const colunaData = nomeTabela === 'LEADS' ? 'data_cadastro' : 'data-cadastro';
 
     const { data, error } = await supabase
@@ -224,151 +227,157 @@ export function AdminPanel() {
     <div className="admin-panel">
       <div className="section-heading">
         <div>
-          <div className="eyebrow">SOMENTE VOCÊ</div>
-          <h1>Seu portfólio em números.</h1>
+          <div className="eyebrow">{role === "admin" ? "SOMENTE VOCÊ" : "ACESSO RESTRITO"}</div>
+          {/* Título dinâmico baseado no cargo */}
+          <h1>{role === "admin" ? "Seu portfólio em números." : "Gestão de Leads."}</h1>
         </div>
         <button className="button button-outline" onClick={logout}>
           Sair <LogOut size={16} />
         </button>
       </div>
 
-      <div className="admin-toolbar">
-        <label>
-          De
-          <input
-            type="date"
-            value={start}
-            onChange={(e) => {
-              setStart(e.target.value);
-              setPage(0);
-            }}
-          />
-        </label>
-        <label>
-          Até
-          <input
-            type="date"
-            value={end}
-            onChange={(e) => {
-              setEnd(e.target.value);
-              setPage(0);
-            }}
-          />
-        </label>
-        <button
-          className="icon-button"
-          onClick={() => setRefresh((r) => r + 1)}
-          aria-label="Atualizar indicadores"
-        >
-          <RefreshCw size={18} />
-        </button>
-        <a
-          className="button button-outline"
-          href={`/api/admin/export?${query}&format=csv`}
-        >
-          <ArrowDownToLine size={16} /> CSV
-        </a>
-        <a
-          className="button button-outline"
-          href={`/api/admin/export?${query}&format=txt`}
-        >
-          TXT
-        </a>
-      </div>
-
-      <p className="admin-note">
-        Horários de Brasília. Estatísticas de visitantes que permitiram a
-        coleta; não representam pessoas únicas. Downloads medem o início da
-        entrega do arquivo.
-      </p>
-
-      {error && (
-        <p role="alert" className="form-feedback">
-          {error}
-        </p>
-      )}
-
-      {loading && <p role="status">Carregando indicadores...</p>}
-
-      {metrics && !loading && (
+      {/* --- MÓDULO ADMIN: MÉTRICAS E GRÁFICOS (Só visível para admin) --- */}
+      {role === "admin" && (
         <>
-          <div className="metric-grid">
-            {[
-              ["Downloads acumulados", metrics.totalDownloads],
-              ["Hoje", metrics.todayDownloads],
-              ["Esta semana", metrics.weekDownloads],
-              ["Este mês", metrics.monthDownloads],
-              ["Visitas no período", metrics.visits],
-              ["Downloads no período", metrics.downloads],
-              ["Projetos vistos", metrics.projectViews],
-              ["Cliques no período", metrics.clicks],
-            ].map(([title, value]) => (
-              <article key={title as string}>
-                <span>{title}</span>
-                <strong>{Number(value).toLocaleString("pt-BR")}</strong>
-              </article>
-            ))}
+          <div className="admin-toolbar">
+            <label>
+              De
+              <input
+                type="date"
+                value={start}
+                onChange={(e) => {
+                  setStart(e.target.value);
+                  setPage(0);
+                }}
+              />
+            </label>
+            <label>
+              Até
+              <input
+                type="date"
+                value={end}
+                onChange={(e) => {
+                  setEnd(e.target.value);
+                  setPage(0);
+                }}
+              />
+            </label>
+            <button
+              className="icon-button"
+              onClick={() => setRefresh((r) => r + 1)}
+              aria-label="Atualizar indicadores"
+            >
+              <RefreshCw size={18} />
+            </button>
+            <a
+              className="button button-outline"
+              href={`/api/admin/export?${query}&format=csv`}
+            >
+              <ArrowDownToLine size={16} /> CSV
+            </a>
+            <a
+              className="button button-outline"
+              href={`/api/admin/export?${query}&format=txt`}
+            >
+              TXT
+            </a>
           </div>
 
-          <section className="admin-chart">
-            <h2>Visitas e downloads por dia</h2>
-            {metrics.daily.length ? (
-              <div className="daily-chart">
-                {metrics.daily.map((day) => (
-                  <div className="daily-row" key={day.day}>
-                    <time>
-                      {day.day.slice(5).split("-").reverse().join("/")}
-                    </time>
-                    <div>
-                      <span
-                        className="visit-bar"
-                        style={{
-                          width: `${Math.max(1, (day.visits / Math.max(...metrics.daily.map((d) => d.visits), 1)) * 100)}%`,
-                        }}
-                      />
-                      <span
-                        className="download-bar"
-                        style={{
-                          width: `${Math.max(1, (day.downloads / Math.max(...metrics.daily.map((d) => d.visits + d.downloads), 1)) * 100)}%`,
-                        }}
-                      />
-                    </div>
-                    <span>
-                      {day.visits} visitas · {day.downloads} downloads
-                    </span>
-                  </div>
+          <p className="admin-note">
+            Horários de Brasília. Estatísticas de visitantes que permitiram a
+            coleta; não representam pessoas únicas. Downloads medem o início da
+            entrega do arquivo.
+          </p>
+
+          {error && (
+            <p role="alert" className="form-feedback">
+              {error}
+            </p>
+          )}
+
+          {loading && <p role="status">Carregando indicadores...</p>}
+
+          {metrics && !loading && (
+            <>
+              <div className="metric-grid">
+                {[
+                  ["Downloads acumulados", metrics.totalDownloads],
+                  ["Hoje", metrics.todayDownloads],
+                  ["Esta semana", metrics.weekDownloads],
+                  ["Este mês", metrics.monthDownloads],
+                  ["Visitas no período", metrics.visits],
+                  ["Downloads no período", metrics.downloads],
+                  ["Projetos vistos", metrics.projectViews],
+                  ["Cliques no período", metrics.clicks],
+                ].map(([title, value]) => (
+                  <article key={title as string}>
+                    <span>{title}</span>
+                    <strong>{Number(value).toLocaleString("pt-BR")}</strong>
+                  </article>
                 ))}
               </div>
-            ) : (
-              <p>Nenhum evento no período selecionado.</p>
-            )}
-          </section>
 
-          <div className="ranking-grid">
-            {[
-              ["Projetos mais acessados", metrics.projects],
-              ["Links mais clicados", metrics.links],
-            ].map(([title, items]) => (
-              <section key={title as string}>
-                <h2>{title as string}</h2>
-                {(items as Metrics["projects"]).length ? (
-                  (items as Metrics["projects"]).map((item) => (
-                    <div className="ranking-row" key={item.target}>
-                      <span>{label(item.target)}</span>
-                      <strong>{item.count}</strong>
-                    </div>
-                  ))
+              <section className="admin-chart">
+                <h2>Visitas e downloads por dia</h2>
+                {metrics.daily.length ? (
+                  <div className="daily-chart">
+                    {metrics.daily.map((day) => (
+                      <div className="daily-row" key={day.day}>
+                        <time>
+                          {day.day.slice(5).split("-").reverse().join("/")}
+                        </time>
+                        <div>
+                          <span
+                            className="visit-bar"
+                            style={{
+                              width: `${Math.max(1, (day.visits / Math.max(...metrics.daily.map((d) => d.visits), 1)) * 100)}%`,
+                            }}
+                          />
+                          <span
+                            className="download-bar"
+                            style={{
+                              width: `${Math.max(1, (day.downloads / Math.max(...metrics.daily.map((d) => d.visits + d.downloads), 1)) * 100)}%`,
+                            }}
+                          />
+                        </div>
+                        <span>
+                          {day.visits} visitas · {day.downloads} downloads
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 ) : (
-                  <p>Nenhum registro neste período.</p>
+                  <p>Nenhum evento no período selecionado.</p>
                 )}
               </section>
-            ))}
-          </div>
+
+              <div className="ranking-grid">
+                {[
+                  ["Projetos mais acessados", metrics.projects],
+                  ["Links mais clicados", metrics.links],
+                ].map(([title, items]) => (
+                  <section key={title as string}>
+                    <h2>{title as string}</h2>
+                    {(items as Metrics["projects"]).length ? (
+                      (items as Metrics["projects"]).map((item) => (
+                        <div className="ranking-row" key={item.target}>
+                          <span>{label(item.target)}</span>
+                          <strong>{item.count}</strong>
+                        </div>
+                      ))
+                    ) : (
+                      <p>Nenhum registro neste período.</p>
+                    )}
+                  </section>
+                ))}
+              </div>
+            </>
+          )}
         </>
       )}
 
-      {/* --- NOVA SEÇÃO DE LEADS --- */}
-      <section className="history-section" style={{ marginTop: "40px" }}>
+      {/* --- NOVA SEÇÃO DE LEADS (Visível para TODOS) --- */}
+      <section className="history-section" style={{ marginTop: role === "admin" ? "40px" : "10px" }}>
         <h2>Gestão de Leads</h2>
         
         <div className="admin-toolbar" style={{ marginBottom: "15px", justifyContent: "flex-start" }}>
@@ -376,13 +385,13 @@ export function AdminPanel() {
             className={`button ${tabelaAtiva === 'LEADS' ? '' : 'button-outline'}`}
             onClick={() => buscarLeads('LEADS')}
           >
-            Ver Tabela LEADS
+            Ver Tabela LEADS - DEVMEDIA
           </button>
           <button
             className={`button ${tabelaAtiva === 'LEADS2' ? '' : 'button-outline'}`}
             onClick={() => buscarLeads('LEADS2')}
           >
-            Ver Tabela LEADS2
+            Ver Tabela LEADS2 - PORTIFOLIO
           </button>
         </div>
 
@@ -392,7 +401,6 @@ export function AdminPanel() {
               <tr>
                 <th>Nome</th>
                 <th>Email</th>
-                {/* Exibe o cabeçalho dinamicamente de acordo com a tabela ativa */}
                 {tabelaAtiva === 'LEADS' && <th>Telefone</th>}
                 {tabelaAtiva === 'LEADS2' && <th>Mensagem</th>}
                 <th>Data de Cadastro</th>
@@ -405,7 +413,6 @@ export function AdminPanel() {
                 </tr>
               ) : leadsData.length > 0 ? (
                 leadsData.map((lead) => {
-                  // Captura a data dependendo do nome da coluna na tabela
                   const rawDate = tabelaAtiva === 'LEADS' ? lead.data_cadastro : lead['data-cadastro'];
                   const formattedDate = rawDate 
                     ? new Date(rawDate).toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" }) 
@@ -415,7 +422,6 @@ export function AdminPanel() {
                     <tr key={lead.id}>
                       <td>{lead.nome || '-'}</td>
                       <td>{lead.email || '-'}</td>
-                      {/* Exibe a célula dinâmica */}
                       {tabelaAtiva === 'LEADS' && <td>{lead.telefone || '-'}</td>}
                       {tabelaAtiva === 'LEADS2' && <td>{lead.message || '-'}</td>}
                       <td>{formattedDate}</td>
@@ -432,60 +438,62 @@ export function AdminPanel() {
         </div>
       </section>
 
-      {/* --- SEÇÃO ORIGINAL DE HISTÓRICO DE EVENTOS --- */}
-      <section className="history-section" style={{ marginTop: "40px" }}>
-        <h2>Histórico de registros de acesso</h2>
-        <div className="table-scroll">
-          <table>
-            <thead>
-              <tr>
-                <th>Data e hora</th>
-                <th>Evento</th>
-                <th>Destino</th>
-                <th>Origem</th>
-                <th>Dispositivo</th>
-                <th>Navegador</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((row) => (
-                <tr key={row.id}>
-                  <td>
-                    {new Date(row.created_at).toLocaleString("pt-BR", {
-                      timeZone: "America/Sao_Paulo",
-                    })}
-                  </td>
-                  <td>{eventLabels[row.event_type]}</td>
-                  <td>{label(row.target)}</td>
-                  <td>{row.source}</td>
-                  <td>{row.device}</td>
-                  <td>{row.browser}</td>
+      {/* --- SEÇÃO ORIGINAL DE HISTÓRICO DE EVENTOS (Só visível para admin) --- */}
+      {role === "admin" && (
+        <section className="history-section" style={{ marginTop: "40px" }}>
+          <h2>Histórico de registros de acesso</h2>
+          <div className="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Data e hora</th>
+                  <th>Evento</th>
+                  <th>Destino</th>
+                  <th>Origem</th>
+                  <th>Dispositivo</th>
+                  <th>Navegador</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        {!rows.length && !loading && <p>Nenhum registro encontrado.</p>}
-        <div className="pagination">
-          <button
-            className="button button-outline button-small"
-            disabled={page === 0 || loading}
-            onClick={() => setPage((p) => p - 1)}
-          >
-            Anterior
-          </button>
-          <span>
-            Página {page + 1} · {count} registros
-          </span>
-          <button
-            className="button button-outline button-small"
-            disabled={(page + 1) * 30 >= count || loading}
-            onClick={() => setPage((p) => p + 1)}
-          >
-            Próxima
-          </button>
-        </div>
-      </section>
+              </thead>
+              <tbody>
+                {rows.map((row) => (
+                  <tr key={row.id}>
+                    <td>
+                      {new Date(row.created_at).toLocaleString("pt-BR", {
+                        timeZone: "America/Sao_Paulo",
+                      })}
+                    </td>
+                    <td>{eventLabels[row.event_type]}</td>
+                    <td>{label(row.target)}</td>
+                    <td>{row.source}</td>
+                    <td>{row.device}</td>
+                    <td>{row.browser}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          {!rows.length && !loading && <p>Nenhum registro encontrado.</p>}
+          <div className="pagination">
+            <button
+              className="button button-outline button-small"
+              disabled={page === 0 || loading}
+              onClick={() => setPage((p) => p - 1)}
+            >
+              Anterior
+            </button>
+            <span>
+              Página {page + 1} · {count} registros
+            </span>
+            <button
+              className="button button-outline button-small"
+              disabled={(page + 1) * 30 >= count || loading}
+              onClick={() => setPage((p) => p + 1)}
+            >
+              Próxima
+            </button>
+          </div>
+        </section>
+      )}
     </div>
   );
 }
