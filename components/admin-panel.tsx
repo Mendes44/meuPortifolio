@@ -1,8 +1,16 @@
 "use client";
+
 import { useEffect, useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowDownToLine, LogOut, ShieldCheck, RefreshCw } from "lucide-react";
 import { projects } from "@/lib/projects";
+import { createClient } from "@supabase/supabase-js"; 
+
+// Inicialização do Supabase (Substitua a chave anon)
+const supabaseUrl = 'https://voxrjndqnzlsjitnhgrx.supabase.co';
+const supabaseKey = 'sb_publishable_9TF-N8EGJ3VRm_t11k_l8w_8Nuljlc5'; 
+const supabase = createClient(supabaseUrl, supabaseKey);
+
 type Metrics = {
   totalDownloads: number;
   todayDownloads: number;
@@ -16,6 +24,7 @@ type Metrics = {
   projects: { target: string; count: number }[];
   links: { target: string; count: number }[];
 };
+
 type EventRow = {
   id: number;
   created_at: string;
@@ -25,20 +34,24 @@ type EventRow = {
   device: string;
   browser: string;
 };
+
 export function AdminLogin({ ready }: { ready: boolean }) {
   const router = useRouter();
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+
   async function login(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setBusy(true);
     setError("");
+
     try {
       const response = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(Object.fromEntries(new FormData(e.currentTarget))),
       });
+
       const result = await response.json();
       if (response.ok) router.refresh();
       else setError(result.error || "Não foi possível entrar.");
@@ -48,12 +61,14 @@ export function AdminLogin({ ready }: { ready: boolean }) {
       setBusy(false);
     }
   }
+
   return (
     <div className="login-card">
       <ShieldCheck size={36} />
       <div className="eyebrow">ACESSO RESTRITO</div>
       <h1>Área privada</h1>
       <p>Indicadores e registros do portfólio.</p>
+
       {!ready && (
         <div className="project-note">
           <strong>Configuração pendente</strong>
@@ -63,6 +78,7 @@ export function AdminLogin({ ready }: { ready: boolean }) {
           </p>
         </div>
       )}
+
       <form className="login-form" onSubmit={login}>
         <label>
           E-mail
@@ -85,9 +101,11 @@ export function AdminLogin({ ready }: { ready: boolean }) {
             disabled={!ready}
           />
         </label>
+
         <button className="button" disabled={!ready || busy}>
           {busy ? "Entrando..." : "Entrar com segurança"}
         </button>
+
         <p role="alert" className="form-feedback">
           {error}
         </p>
@@ -95,12 +113,14 @@ export function AdminLogin({ ready }: { ready: boolean }) {
     </div>
   );
 }
+
 const eventLabels: Record<string, string> = {
   visit: "Visita",
   project_view: "Projeto",
   link_click: "Clique",
   cv_download: "Currículo",
 };
+
 export function AdminPanel() {
   const router = useRouter();
   const [start, setStart] = useState(
@@ -114,11 +134,19 @@ export function AdminPanel() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [refresh, setRefresh] = useState(0);
+
+  // --- ESTADOS DA SEÇÃO DE LEADS ---
+  const [tabelaAtiva, setTabelaAtiva] = useState('LEADS');
+  const [leadsData, setLeadsData] = useState<any[]>([]);
+  const [carregandoLeads, setCarregandoLeads] = useState(false);
+
   const query = `start=${start}&end=${end}`;
+
   useEffect(() => {
     let cancelled = false;
     setLoading(true);
     setError("");
+
     Promise.all([
       fetch(`/api/admin/metrics?${query}`),
       fetch(`/api/admin/events?${query}&page=${page}`),
@@ -132,6 +160,7 @@ export function AdminPanel() {
           throw new Error(
             "Não foi possível carregar. Verifique o período (até 366 dias) e tente novamente.",
           );
+
         const [m, e] = await Promise.all(responses.map((r) => r.json()));
         if (!cancelled) {
           setMetrics(m);
@@ -149,18 +178,48 @@ export function AdminPanel() {
       .finally(() => {
         if (!cancelled) setLoading(false);
       });
+
     return () => {
       cancelled = true;
     };
   }, [query, page, refresh, router]);
+
+  // --- FUNÇÃO E HOOK PARA BUSCAR LEADS ---
+  async function buscarLeads(nomeTabela: string) {
+    setCarregandoLeads(true);
+    setTabelaAtiva(nomeTabela);
+
+    // Identifica qual coluna de data usar com base na tabela
+    const colunaData = nomeTabela === 'LEADS' ? 'data_cadastro' : 'data-cadastro';
+
+    const { data, error } = await supabase
+      .from(nomeTabela)
+      .select('*')
+      .order(colunaData, { ascending: false });
+
+    if (error) {
+      console.error(`Erro ao buscar na tabela ${nomeTabela}:`, error);
+      setLeadsData([]);
+    } else {
+      setLeadsData(data || []);
+    }
+    setCarregandoLeads(false);
+  }
+
+  useEffect(() => {
+    buscarLeads('LEADS');
+  }, []);
+
   async function logout() {
     const result = await fetch("/api/auth/logout", { method: "POST" });
     if (result.ok) router.refresh();
     else setError("Não foi possível encerrar a sessão.");
   }
+
   function label(target: string) {
     return projects.find((p) => p.slug === target)?.title || target;
   }
+
   return (
     <div className="admin-panel">
       <div className="section-heading">
@@ -172,6 +231,7 @@ export function AdminPanel() {
           Sair <LogOut size={16} />
         </button>
       </div>
+
       <div className="admin-toolbar">
         <label>
           De
@@ -215,17 +275,21 @@ export function AdminPanel() {
           TXT
         </a>
       </div>
+
       <p className="admin-note">
         Horários de Brasília. Estatísticas de visitantes que permitiram a
         coleta; não representam pessoas únicas. Downloads medem o início da
         entrega do arquivo.
       </p>
+
       {error && (
         <p role="alert" className="form-feedback">
           {error}
         </p>
       )}
+
       {loading && <p role="status">Carregando indicadores...</p>}
+
       {metrics && !loading && (
         <>
           <div className="metric-grid">
@@ -239,12 +303,13 @@ export function AdminPanel() {
               ["Projetos vistos", metrics.projectViews],
               ["Cliques no período", metrics.clicks],
             ].map(([title, value]) => (
-              <article key={title}>
+              <article key={title as string}>
                 <span>{title}</span>
                 <strong>{Number(value).toLocaleString("pt-BR")}</strong>
               </article>
             ))}
           </div>
+
           <section className="admin-chart">
             <h2>Visitas e downloads por dia</h2>
             {metrics.daily.length ? (
@@ -278,6 +343,7 @@ export function AdminPanel() {
               <p>Nenhum evento no período selecionado.</p>
             )}
           </section>
+
           <div className="ranking-grid">
             {[
               ["Projetos mais acessados", metrics.projects],
@@ -300,8 +366,75 @@ export function AdminPanel() {
           </div>
         </>
       )}
-      <section className="history-section">
-        <h2>Histórico de registros</h2>
+
+      {/* --- NOVA SEÇÃO DE LEADS --- */}
+      <section className="history-section" style={{ marginTop: "40px" }}>
+        <h2>Gestão de Leads</h2>
+        
+        <div className="admin-toolbar" style={{ marginBottom: "15px", justifyContent: "flex-start" }}>
+          <button
+            className={`button ${tabelaAtiva === 'LEADS' ? '' : 'button-outline'}`}
+            onClick={() => buscarLeads('LEADS')}
+          >
+            Ver Tabela LEADS
+          </button>
+          <button
+            className={`button ${tabelaAtiva === 'LEADS2' ? '' : 'button-outline'}`}
+            onClick={() => buscarLeads('LEADS2')}
+          >
+            Ver Tabela LEADS2
+          </button>
+        </div>
+
+        <div className="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Email</th>
+                {/* Exibe o cabeçalho dinamicamente de acordo com a tabela ativa */}
+                {tabelaAtiva === 'LEADS' && <th>Telefone</th>}
+                {tabelaAtiva === 'LEADS2' && <th>Mensagem</th>}
+                <th>Data de Cadastro</th>
+              </tr>
+            </thead>
+            <tbody>
+              {carregandoLeads ? (
+                <tr>
+                  <td colSpan={4}>Carregando leads...</td>
+                </tr>
+              ) : leadsData.length > 0 ? (
+                leadsData.map((lead) => {
+                  // Captura a data dependendo do nome da coluna na tabela
+                  const rawDate = tabelaAtiva === 'LEADS' ? lead.data_cadastro : lead['data-cadastro'];
+                  const formattedDate = rawDate 
+                    ? new Date(rawDate).toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" }) 
+                    : '-';
+
+                  return (
+                    <tr key={lead.id}>
+                      <td>{lead.nome || '-'}</td>
+                      <td>{lead.email || '-'}</td>
+                      {/* Exibe a célula dinâmica */}
+                      {tabelaAtiva === 'LEADS' && <td>{lead.telefone || '-'}</td>}
+                      {tabelaAtiva === 'LEADS2' && <td>{lead.message || '-'}</td>}
+                      <td>{formattedDate}</td>
+                    </tr>
+                  )
+                })
+              ) : (
+                <tr>
+                  <td colSpan={4}>Nenhum lead encontrado nesta tabela.</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {/* --- SEÇÃO ORIGINAL DE HISTÓRICO DE EVENTOS --- */}
+      <section className="history-section" style={{ marginTop: "40px" }}>
+        <h2>Histórico de registros de acesso</h2>
         <div className="table-scroll">
           <table>
             <thead>

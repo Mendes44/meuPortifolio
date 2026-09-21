@@ -61,3 +61,14 @@
  GET / 200 in 1203ms (next.js: 254ms, application-code: 949ms)
  GET / 200 in 774ms (next.js: 110ms, application-code: 664ms)
  POST /api/events 403 in 132ms (next.js: 107ms, application-code: 24ms)
+  Reload env: .env.local
+✓ Compiled in 60ms
+ GET / 200 in 253ms (next.js: 9ms, application-code: 244ms)
+ GET / 200 in 465ms (next.js: 110ms, application-code: 355ms)
+ GET / 200 in 243ms (next.js: 177ms, application-code: 66ms)
+✓ Compiled in 37ms
+ GET / 200 in 288ms (next.js: 219ms, application-code: 69ms)
+ GET / 200 in 310ms (next.js: 9ms, application-code: 301ms)
+ GET / 200 in 508ms (next.js: 104ms, application-code: 403ms)
+ POST /api/events 204 in 1157ms (next.js: 89ms, application-code: 1068ms)
+ POST /api/events 204 in 789ms (next.js: 77ms, application-code: 712ms)
