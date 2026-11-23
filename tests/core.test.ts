@@ -11,12 +11,27 @@ import {
 } from "../lib/validation";
 import { dateRange } from "../lib/date-range";
 test("filter by area, technology and accented search together", () => {
-  assert.equal(filterProjects("Todos", "Todas", "").length, 14);
+  assert.equal(filterProjects("Todos", "Todas", "").length, 20);
   assert.deepEqual(
     filterProjects("Backend & APIs", "Java", "gestao").map((p) => p.slug),
     ["gestao-api"],
   );
   assert.equal(filterProjects("Frontend", "Java", "").length, 0);
+  assert.ok(
+    filterProjects("SaaS", "Supabase", "fixapp").some(
+      (p) => p.slug === "fixapp",
+    ),
+  );
+  assert.ok(
+    filterProjects("Cloud & AWS", "AWS", "camadas").some(
+      (p) => p.slug === "aws-tres-camadas",
+    ),
+  );
+  assert.ok(
+    filterProjects("Sites comerciais", "JavaScript", "village").some(
+      (p) => p.slug === "village-kids",
+    ),
+  );
   assert.ok(
     filterProjects("Full Stack", "PostgreSQL", "").some(
       (p) => p.slug === "appbraza",

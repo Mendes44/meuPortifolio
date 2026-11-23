@@ -91,7 +91,7 @@ export function ProjectGallery() {
             </Link>
             <div className="card-body">
               <div className="card-meta">
-                <span>{p.areas[0]}</span>
+                <span>{p.featured ? `★ Destaque · ${p.areas[0]}` : p.areas[0]}</span>
                 <span className={p.demo ? "online-status" : "code-status"}>
                   {p.demo ? "● Demo online" : "↗ Somente GitHub"}
                 </span>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360" role="img" aria-labelledby="title description">
+  <title id="title">Copa Cozinha</title>
+  <desc id="description">Marca tipográfica Copa Cozinha, quitandas e afeto.</desc>
+  <rect width="760" height="360" rx="28" fill="#f4eee3"/>
+  <g fill="#244d3a" text-anchor="middle">
+    <text x="380" y="142" font-family="Georgia, 'Times New Roman', serif" font-size="100" font-weight="700" letter-spacing="8">COPA</text>
+    <text x="380" y="235" font-family="Georgia, 'Times New Roman', serif" font-size="82" font-weight="700" letter-spacing="5">COZINHA</text>
+    <text x="380" y="292" font-family="Georgia, 'Times New Roman', serif" font-size="30" font-style="italic" letter-spacing="4">quitandas &amp; afeto</text>
+  </g>
+</svg>

@@ -910,6 +910,10 @@ p {
 .project-visual img.screenshot-image {
   object-position: top;
 }
+.project-visual img.logo-image {
+  object-fit: contain;
+  padding: clamp(34px, 9%, 58px);
+}
 .visual-label {
   position: absolute;
   bottom: 12px;
@@ -927,6 +931,21 @@ p {
   display: flex;
   flex-direction: column;
 }
+.project-screenshot-gallery {
+  margin-top: 18px;
+}
+.project-screenshot-gallery figure {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+}
+.project-screenshot-gallery img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
 .project-visual.rust {
   background: #322520;
 }
@@ -941,6 +960,9 @@ p {
 }
 .project-visual.purple {
   background: #29263c;
+}
+.project-visual.logo-visual {
+  background: #f6f3ec;
 }
 .visual-top {
   display: flex;

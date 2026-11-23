@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360" role="img" aria-labelledby="title description">
+  <title id="title">Village Kids</title>
+  <desc id="description">Identificação visual colorida do Village Kids.</desc>
+  <rect width="760" height="360" rx="28" fill="#fffaf0"/>
+  <g transform="translate(380 180)" text-anchor="middle">
+    <circle cx="-245" cy="-92" r="26" fill="#ffca3a"/>
+    <circle cx="235" cy="-78" r="31" fill="#ff595e"/>
+    <circle cx="-268" cy="96" r="20" fill="#8ac926"/>
+    <circle cx="262" cy="96" r="23" fill="#1982c4"/>
+    <text y="-5" font-family="Trebuchet MS, Arial, sans-serif" font-size="96" font-weight="900" letter-spacing="-4">
+      <tspan fill="#ff595e">Village</tspan>
+    </text>
+    <text y="88" font-family="Trebuchet MS, Arial, sans-serif" font-size="94" font-weight="900" letter-spacing="4">
+      <tspan fill="#1982c4">K</tspan><tspan fill="#ffca3a">i</tspan><tspan fill="#8ac926">d</tspan><tspan fill="#ff595e">s</tspan>
+    </text>
+  </g>
+</svg>

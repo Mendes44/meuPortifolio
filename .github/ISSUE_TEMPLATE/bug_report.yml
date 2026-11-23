@@ -1,0 +1,26 @@
+name: Relatar problema
+description: Informe um comportamento incorreto do portfólio.
+title: "bug: "
+labels: [bug]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problema
+      description: Explique o que aconteceu e o que esperava.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Como reproduzir
+      description: Liste os passos, a página e o dispositivo/navegador.
+    validations:
+      required: true
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacidade
+      options:
+        - label: Não incluí senhas, tokens, chaves ou dados pessoais.
+          required: true

@@ -1,5 +1,8 @@
 export const areas = [
   "Todos",
+  "SaaS",
+  "Sites comerciais",
+  "Cloud & AWS",
   "Full Stack",
   "Frontend",
   "Backend & APIs",
@@ -20,6 +23,8 @@ export type Project = {
   repo?: string;
   demo?: string;
   image?: string;
+  imageMode?: "screenshot" | "logo";
+  gallery?: string[];
   visual: "website" | "app" | "api" | "terminal" | "data";
   color: string;
   features: string[];
@@ -29,6 +34,7 @@ export type Project = {
   note?: string;
   endpoints?: string[];
   source: string;
+  featured?: boolean;
 };
 const gh = "https://github.com/Mendes44/";
 
@@ -37,17 +43,209 @@ const gh = "https://github.com/Mendes44/";
 // tecnologias, descrição e detalhes. A página /projetos é atualizada automaticamente.
 export const projects: Project[] = [
   {
+    slug: "fixapp",
+    title: "FixApp",
+    subtitle: "Operação completa para assistências técnicas.",
+    description:
+      "SaaS multiempresa para ordens de serviço, clientes, estoque, vendas, PDV, financeiro, relatórios e gestão de equipes.",
+    areas: ["SaaS", "Full Stack", "Dados"],
+    technologies: ["Next.js", "React", "TypeScript", "Supabase", "PostgreSQL", "PWA"],
+    status: "Demonstração",
+    featured: true,
+    demo: "https://fixapp-bay.vercel.app/",
+    image: "/images/fixapp-dashboard.png",
+    imageMode: "screenshot",
+    gallery: ["/images/fixapp-orders.png"],
+    visual: "app",
+    color: "blue",
+    features: [
+      "Arquitetura multi-tenant com isolamento por loja e políticas RLS",
+      "Ordens de serviço, fotos, diagnóstico, assinatura digital e acompanhamento",
+      "Estoque, vendas, PDV, caixa, devoluções e relatórios gerenciais",
+      "PWA instalável, backups criptografados e monitoramento com Sentry",
+      "Testes Vitest, Playwright, pgTAP, carga e recuperação de desastre",
+    ],
+    problem:
+      "Centralizar a operação de assistências técnicas que normalmente depende de sistemas isolados, planilhas e processos manuais.",
+    technical:
+      "Next.js com fronteiras server-side, Supabase Auth e PostgreSQL, isolamento multiempresa, auditoria, CSP, validação Zod e suítes automatizadas.",
+    architecture: [
+      "PWA Next.js",
+      "Autenticação e autorização por tenant",
+      "Server Actions / RPCs",
+      "PostgreSQL + RLS + Storage",
+    ],
+    note: "Produto em evolução e demonstração protegida por autenticação. O repositório é privado por conter regras do produto e documentação operacional.",
+    source: "https://fixapp-bay.vercel.app/",
+  },
+  {
+    slug: "copa-cozinha",
+    title: "Copa Cozinha",
+    subtitle: "Quitandas, afeto e três casas em uma experiência digital.",
+    description:
+      "Site institucional responsivo com vitrine filtrável, unidades, cardápio digital, mapa e formulário de eventos via WhatsApp.",
+    areas: ["Sites comerciais", "Frontend"],
+    technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Leaflet"],
+    status: "Demonstração",
+    featured: true,
+    demo: "https://copacozinha.vercel.app/",
+    image: "/images/logo-copa-cozinha.svg",
+    imageMode: "logo",
+    visual: "website",
+    color: "green",
+    features: [
+      "Vitrine de produtos organizada por categorias",
+      "Leitor de cardápio com páginas, zoom, PDF e mapa",
+      "Três unidades com horários, endereços e rotas",
+      "Formulário de eventos que prepara o atendimento no WhatsApp",
+      "SEO, dados estruturados, sitemap e acessibilidade responsiva",
+    ],
+    problem:
+      "Apresentar a identidade, os produtos e as três casas da marca sem perder o caminho rápido para cardápio, localização e eventos.",
+    technical:
+      "App Router, imagens otimizadas, mapa carregado sob demanda, conteúdo centralizado e metadados estruturados para cada unidade.",
+    architecture: ["Next.js", "Conteúdo da marca", "Leaflet / OpenStreetMap", "WhatsApp"],
+    note: "Projeto de cliente. O código-fonte permanece privado; a demonstração pública está disponível.",
+    source: "https://copacozinha.vercel.app/",
+  },
+  {
+    slug: "stok-atacadista",
+    title: "Stok Atacadista",
+    subtitle: "Vitrine comercial preparada para campanhas e conversão.",
+    description:
+      "Site responsivo de atacado e varejo com catálogo filtrável, atendimento pelo WhatsApp e painel privado de mídia e conversões.",
+    areas: ["Sites comerciais", "Full Stack", "Dados"],
+    technologies: ["HTML5", "CSS3", "JavaScript", "Node.js", "Google Analytics"],
+    status: "Demonstração",
+    featured: true,
+    demo: "https://www.stokoutlet.com.br/",
+    visual: "website",
+    image: "/images/logo-stok.webp",
+    imageMode: "logo",
+    color: "purple",
+    features: [
+      "Catálogo por categorias e chamadas diretas para WhatsApp",
+      "Preservação de UTMs, gclid e fbclid para campanhas",
+      "Eventos de conversão preparados para GTM, GA4 e Meta Pixel",
+      "Painel administrativo server-side para Google Ads e Analytics",
+      "Imagens WebP, cache e cabeçalhos de segurança",
+    ],
+    problem:
+      "Transformar o catálogo da loja em uma vitrine rápida, mensurável e voltada à geração de conversas comerciais.",
+    technical:
+      "Frontend estático com build próprio e painel separado no servidor, mantendo credenciais de mídia fora do navegador.",
+    architecture: ["Vitrine estática", "WhatsApp", "GTM / GA4", "Painel de métricas"],
+    note: "Projeto de cliente com código e painel de campanhas privados. A demonstração pública está disponível no domínio oficial.",
+    source: "https://www.stokoutlet.com.br/",
+  },
+  {
+    slug: "tradicao-do-peixe",
+    title: "Tradição do Peixe",
+    subtitle: "Restaurante, cardápio e experiência da casa.",
+    description:
+      "Site institucional com galeria otimizada, cardápio, vídeo da casa, contato, localização e mensuração condicionada ao consentimento.",
+    areas: ["Sites comerciais", "Frontend"],
+    technologies: ["Vite", "HTML5", "CSS3", "JavaScript", "Google Tag Manager"],
+    status: "Demonstração",
+    featured: true,
+    demo: "https://tradicaodopeixe.com.br/",
+    image: "/images/logo-tradicao-do-peixe.png",
+    imageMode: "logo",
+    visual: "website",
+    color: "rust",
+    features: [
+      "Galeria responsiva com imagens WebP e carregamento progressivo",
+      "Tour em vídeo carregado somente quando solicitado",
+      "Cardápio, WhatsApp, mapa e rotas para o restaurante",
+      "SEO, dados estruturados, sitemap e redirecionamentos do site anterior",
+      "Consent Mode v2 e eventos de conversão sem dados pessoais",
+    ],
+    problem:
+      "Modernizar a presença digital do restaurante preservando SEO, campanhas e os acessos existentes do site anterior.",
+    technical:
+      "Vite com imagens responsivas, vídeo em faststart, carregamento sob demanda e integração controlada com GTM, Analytics e Ads.",
+    architecture: ["Vite", "Conteúdo otimizado", "GTM / Consent Mode", "Vercel"],
+    note: "Site publicado para cliente real, com domínio próprio e preservação de métricas e redirecionamentos históricos.",
+    source: "https://tradicaodopeixe.com.br/",
+  },
+  {
+    slug: "village-kids",
+    title: "Village Kids",
+    subtitle: "Diversão, festas e experiências para toda a família.",
+    description:
+      "Site comercial responsivo para apresentar cinco unidades, festas infantis, espaços, temas e atendimento direto pelo WhatsApp.",
+    areas: ["Sites comerciais", "Frontend"],
+    technologies: ["HTML5", "CSS3", "JavaScript"],
+    status: "Demonstração",
+    featured: true,
+    demo: "https://villagekidsbh.com.br/",
+    image: "/images/logo-village-kids.svg",
+    imageMode: "logo",
+    visual: "website",
+    color: "orange",
+    features: [
+      "Apresentação de cinco unidades em Belo Horizonte e Nova Lima",
+      "Galerias organizadas por espaço e experiência",
+      "Pacotes de festas, temas e serviços adicionais",
+      "Formulário de orçamento conectado ao atendimento pelo WhatsApp",
+      "Navegação responsiva com informações de horários e localização",
+    ],
+    problem:
+      "Reunir unidades, experiências e opções de festas em uma presença digital clara para famílias que precisam comparar espaços e solicitar orçamento.",
+    technical:
+      "Interface responsiva orientada a conteúdo, com seções reutilizáveis para unidades, galerias, festas, depoimentos e conversão pelo WhatsApp.",
+    architecture: [
+      "Site responsivo",
+      "Conteúdo das unidades",
+      "Galerias e festas",
+      "WhatsApp",
+    ],
+    note: "Projeto de cliente com demonstração pública no domínio oficial. O código-fonte permanece privado.",
+    source: "https://villagekidsbh.com.br/",
+  },
+  {
+    slug: "aws-tres-camadas",
+    title: "Arquitetura em três camadas na AWS",
+    subtitle: "Rede, processamento assíncrono e observabilidade.",
+    description:
+      "Laboratório documentado com CloudFront, ALB, EC2 privadas, Auto Scaling, SQS, DynamoDB, CloudWatch e alta disponibilidade entre zonas.",
+    areas: ["Cloud & AWS", "Redes & Linux"],
+    technologies: ["AWS", "EC2", "SQS", "DynamoDB", "CloudWatch", "VPC"],
+    status: "Projeto de estudo",
+    featured: true,
+    repo: gh + "Aplicacao-3Camadas-AWS",
+    image: "/images/aws-3-camadas.png",
+    visual: "app",
+    color: "orange",
+    features: [
+      "VPC distribuída em duas zonas de disponibilidade",
+      "CloudFront, Application Load Balancer e grupos Auto Scaling",
+      "Processamento desacoplado com SQS e fila de mensagens mortas",
+      "Persistência no DynamoDB e recuperação point-in-time",
+      "Dashboard, alarmes CloudWatch e notificações por SNS",
+    ],
+    problem:
+      "Compreender como entrada, capacidade, filas, persistência e monitoramento se relacionam em uma arquitetura AWS resiliente.",
+    technical:
+      "Estudo de caso construído pelo Console AWS, com diagrama editável, evidências, limites técnicos, plano de testes, custos e roteiro de reprodução.",
+    architecture: ["CloudFront / ALB", "EC2 / Auto Scaling", "SQS / DLQ", "DynamoDB / CloudWatch"],
+    note: "Recursos foram desligados após o laboratório para evitar custos. O repositório preserva o diagrama, as evidências e as decisões técnicas.",
+    source: gh + "Aplicacao-3Camadas-AWS/blob/main/README.md",
+  },
+  {
     slug: "chico-do-peixe",
     title: "Chico do Peixe",
     subtitle: "Uma presença digital à altura da casa.",
     description:
       "Site de restaurante com cardápio, galeria, atrações e contato direto para reservas.",
-    areas: ["Frontend"],
+    areas: ["Sites comerciais", "Frontend"],
     technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
     status: "Demonstração",
+    featured: true,
     repo: gh + "Chico-do-Peixe",
     demo: "https://chico-do-peixe.vercel.app/",
-    image: "/images/chico.webp",
+    image: "/images/logo-chico-do-peixe.webp",
+    imageMode: "logo",
     visual: "website",
     color: "rust",
     features: [
@@ -74,12 +272,13 @@ export const projects: Project[] = [
     subtitle: "Quatro unidades. Uma experiência.",
     description:
       "Site com unidades, cardápio, encomendas por WhatsApp e acesso ao sistema de reservas.",
-    areas: ["Frontend"],
+    areas: ["Sites comerciais", "Frontend"],
     technologies: ["Next.js", "React", "TypeScript"],
     status: "Demonstração",
     repo: gh + "verdinho-restaurante",
     demo: "https://verdinho-restaurante.vercel.app/",
-    image: "/images/verdinho.webp",
+    image: "/images/logo-verdinho.webp",
+    imageMode: "logo",
     visual: "website",
     color: "green",
     features: [

@@ -12,24 +12,28 @@ import type { Project } from "@/lib/projects";
 export function ProjectVisual({ project }: { project: Project }) {
   if (project.image)
     return (
-      <div className={`project-visual ${project.color}`}>
+      <div
+        className={`project-visual ${project.color} ${
+          project.imageMode === "logo" ? "logo-visual" : ""
+        }`}
+      >
         <Image
           src={project.image}
           alt={
-            project.slug === "verdinho"
-              ? "Prato apresentado no site Restaurante Verdinho"
-              : "Captura do site Chico do Peixe"
+            project.imageMode === "logo"
+              ? `Logo do projeto ${project.title}`
+              : `Captura de tela do projeto ${project.title}`
           }
           fill
           sizes="(max-width:760px) 90vw, (max-width:1100px) 45vw, 380px"
-          className={
-            project.slug === "chico-do-peixe" ? "screenshot-image" : ""
-          }
+          className={project.imageMode === "logo" ? "logo-image" : "screenshot-image"}
         />
         <span className="visual-label">
-          {project.slug === "verdinho"
-            ? "WEBSITE / RESTAURANTE"
-            : "WEBSITE / CHICO DO PEIXE"}
+          {project.areas.includes("Cloud & AWS")
+            ? "LABORATÓRIO / AWS"
+            : project.areas.includes("SaaS")
+              ? "PRODUTO / SAAS"
+              : "WEBSITE / PROJETO COMERCIAL"}
         </span>
       </div>
     );

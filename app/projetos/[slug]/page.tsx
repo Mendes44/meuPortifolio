@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
@@ -68,6 +69,21 @@ export default async function ProjectPage({
         <div className="detail-layout">
           <div>
             <ProjectVisual project={p} />
+            {p.gallery && p.gallery.length > 0 && (
+              <section className="project-screenshot-gallery" aria-label="Capturas adicionais do projeto">
+                {p.gallery.map((image, index) => (
+                  <figure key={image}>
+                    <Image
+                      src={image}
+                      alt={`Captura ${index + 2} da interface do ${p.title}`}
+                      width={1920}
+                      height={1080}
+                      sizes="(max-width: 900px) 100vw, 760px"
+                    />
+                  </figure>
+                ))}
+              </section>
+            )}
             <section className="detail-section">
               <h2>O projeto</h2>
               <p>{p.description}</p>
@@ -132,7 +148,13 @@ export default async function ProjectPage({
             <p>Marcos Mendes</p>
             <small>TIPO DE PROJETO</small>
             <p>
-              {p.areas.includes("Acadêmicos")
+              {p.areas.includes("SaaS")
+                ? "Produto SaaS multiempresa"
+                : p.areas.includes("Sites comerciais")
+                  ? "Site comercial para cliente"
+                  : p.areas.includes("Cloud & AWS")
+                    ? "Laboratório de arquitetura em nuvem"
+                    : p.areas.includes("Acadêmicos")
                 ? "Estudo e prática de programação"
                 : p.areas.includes("Redes & Linux")
                   ? "Laboratório de infraestrutura"
