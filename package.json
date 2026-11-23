@@ -17,14 +17,14 @@
     "react-dom": "19.2.8"
   },
   "devDependencies": {
-    "@electric-sql/pglite": "^0.5.8",
-    "@netlify/plugin-nextjs": "^5.15.13",
-    "@types/node": "^22.19.19",
+    "@electric-sql/pglite": "^0.5.17",
+    "@netlify/plugin-nextjs": "^5.16.8",
+    "@types/node": "^26.6.6",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "prettier": "^3.9.6",
-    "tsx": "^4.20.0",
-    "typescript": "^5.9.3"
+    "prettier": "^3.10.1",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
   },
   "engines": {
     "node": ">=22.13.0"
